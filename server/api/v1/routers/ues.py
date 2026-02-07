@@ -6,50 +6,50 @@ from core.deps import get_session
 from shared.pagination import paginate_response
 from shared.schemas import ErrorResponse
 
-from models import Dre
-from repositories import DreRepository
+from models import Ue
+from repositories import UeRepository
 from schemas import (
-    DreListPaginated,
-    DrePartial,
-    DrePublic,
-    DreSchema,
+    UeListPaginated,
+    UePartial,
+    UePublic,
+    UeSchema,
 )
-from services import DreService
+from services import UeService
 
 router = APIRouter()
 
 
 def get_service(
     session: AsyncSession = Depends(get_session),
-) -> DreService:
-    return DreService(DreRepository(session))
+) -> UeService:
+    return UeService(UeRepository(session))
 
 
 @router.post(
     "",
     status_code=status.HTTP_201_CREATED,
-    response_model=DrePublic,
+    response_model=UePublic,
     responses={400: {"model": ErrorResponse}},
 )
-async def create_dre(
-    payload: DreSchema,
-    service: DreService = Depends(get_service),
+async def create_ue(
+    payload: UeSchema,
+    service: UeService = Depends(get_service),
 ):
     return await service.create(payload)
 
 
 @router.get(
     "",
-    response_model=DreListPaginated,
+    response_model=UeListPaginated,
 )
-async def list_dres(
+async def list_ues(
     page_number: int = 1,
     page_size: int = 10,
-    service: DreService = Depends(get_service),
+    service: UeService = Depends(get_service),
 ):
     return await paginate_response(
         session=service.repository.session,
-        query=select(Dre),
+        query=select(Ue),
         page_number=page_number,
         page_size=page_size,
     )
@@ -57,44 +57,44 @@ async def list_dres(
 
 @router.get(
     "/{id}",
-    response_model=DrePublic,
+    response_model=UePublic,
     responses={404: {"model": ErrorResponse}},
 )
-async def get_dre(
+async def get_ue(
     id: int,
-    service: DreService = Depends(get_service),
+    service: UeService = Depends(get_service),
 ):
     return await service.get(id)
 
 
 @router.put(
     "/{id}",
-    response_model=DrePublic,
+    response_model=UePublic,
     responses={
         400: {"model": ErrorResponse},
         404: {"model": ErrorResponse},
     },
 )
-async def update_dre(
+async def update_ue(
     id: int,
-    payload: DreSchema,
-    service: DreService = Depends(get_service),
+    payload: UeSchema,
+    service: UeService = Depends(get_service),
 ):
     return await service.update(id, payload)
 
 
 @router.patch(
     "/{id}",
-    response_model=DrePublic,
+    response_model=UePublic,
     responses={
         400: {"model": ErrorResponse},
         404: {"model": ErrorResponse},
     },
 )
-async def patch_dre(
+async def patch_ue(
     id: int,
-    payload: DrePartial,
-    service: DreService = Depends(get_service),
+    payload: UePartial,
+    service: UeService = Depends(get_service),
 ):
     return await service.patch(id, payload)
 
@@ -104,8 +104,8 @@ async def patch_dre(
     status_code=status.HTTP_204_NO_CONTENT,
     responses={404: {"model": ErrorResponse}},
 )
-async def delete_dre(
+async def delete_ue(
     id: int,
-    service: DreService = Depends(get_service),
+    service: UeService = Depends(get_service),
 ):
     await service.delete(id)

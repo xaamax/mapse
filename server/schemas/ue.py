@@ -5,17 +5,20 @@ from sqlmodel import SQLModel
 
 from shared.pagination import PaginatedResponse
 
-class DreSchema(SQLModel):
-    codigo_dre: str
+class UeSchema(SQLModel):
+    codigo_ue: str
     nome: str
-    abreviacao: str
+    endereco: str
+    ativo: bool
+    dre_id: int 
     
-class DrePartial(SQLModel):
+class UePartial(SQLModel):
     nome: Optional[str] = None
+    endereco: Optional[str] = None
     ativo: Optional[bool] = None
-    abreviacao: Optional[str] = None
+    dre_id: Optional[int] = None
     
-class DrePublic(DreSchema):
+class UePublic(UeSchema):
     id: int
     ativo: bool
     criado_em: datetime
@@ -23,5 +26,5 @@ class DrePublic(DreSchema):
     excluido_em: Optional[datetime] = None
     
     
-class DreListPaginated(PaginatedResponse[DrePublic]):
+class UeListPaginated(PaginatedResponse[UePublic]):
     pass

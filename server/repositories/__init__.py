@@ -1,2 +1,3 @@
 from repositories.base_repository import RepositoryBase
 from repositories.dre_repository import DreRepository
+from repositories.ue_repository import UeRepository
