@@ -1,10 +1,12 @@
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    API_V1_URL: str = '/api/v1'
-    DB_URL: str = 'postgresql+asyncpg://postgres:p3mi$Zme8r@localhost:5432/mapse_db'
+    API_V1_URL: str
+    DB_URL: str
     
     class Config:
+        env_file = '.env'
+        env_file_encoding = 'utf-8'
         case_sensitive = True
         
         
