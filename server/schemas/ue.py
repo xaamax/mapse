@@ -21,9 +21,6 @@ class UePartial(SQLModel):
 class UePublic(UeSchema):
     id: int
     ativo: bool
-    criado_em: datetime
-    alterado_em: Optional[datetime] = None
-    excluido_em: Optional[datetime] = None
     
     
 class UeListPaginated(PaginatedResponse[UePublic]):

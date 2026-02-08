@@ -1,3 +1,5 @@
 from repositories.base_repository import RepositoryBase
 from repositories.dre_repository import DreRepository
 from repositories.ue_repository import UeRepository
+from repositories.projeto_social_repository import ProjetoSocialRepository
+from repositories.projeto_social_escolar_repository import ProjetoSocialEscolarRepository
