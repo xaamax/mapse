@@ -3,6 +3,9 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.deps import get_session
+from core.security import get_current_user
+
+
 from shared.pagination import paginate_response
 from shared.schemas import ErrorResponse
 
@@ -16,7 +19,7 @@ from schemas import (
 )
 from services import ProjetoSocialEscolarService
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(get_current_user)])
 
 
 def get_service(

@@ -8,7 +8,6 @@ from shared.pagination import PaginatedResponse
 class ProjetoSocialEscolarSchema(SQLModel):
     ue_id: int 
     projeto_social_id: int 
-    ativo: bool
     
 class ProjetoSocialEscolarPartial(SQLModel):
     ue_id: Optional[int] = None
@@ -17,6 +16,7 @@ class ProjetoSocialEscolarPartial(SQLModel):
     
 class ProjetoSocialEscolarPublic(ProjetoSocialEscolarSchema):
     id: int
+    ativo: bool
     
 class ProjetoSocialEscolarListPaginated(PaginatedResponse[ProjetoSocialEscolarPublic]):
     pass

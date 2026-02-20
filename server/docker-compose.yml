@@ -1,7 +1,6 @@
 name: mapse
 
 services:
-
   db:
     image: postgres:16-alpine
     container_name: mapse-db
@@ -20,35 +19,6 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
-
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-
-    container_name: mapse-api
-
-    restart: unless-stopped
-
-    depends_on:
-      - db
-
-    env_file:
-      - .env
-    environment:
-      POSTGRES_HOST: db
-    ports:
-      - "8000:8000"
-
-    volumes:
-      - .:/app
 
 volumes:
   postgres_data:

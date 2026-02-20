@@ -33,7 +33,7 @@ env.bak/
 venv.bak/
 
 # IDEs
-.vscode/
+*.vscode/
 .idea/
 *.swp
 *.swo
@@ -54,9 +54,6 @@ dmypy.json
 *.db
 *.sqlite3
 
-# Alembic
-# Note: Keep the alembic/versions/ directory and migration files in git
-# Only ignore temporary files
 alembic.ini.bak
 *.pyc
 

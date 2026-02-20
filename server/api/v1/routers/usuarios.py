@@ -3,55 +3,46 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.deps import get_session
-from shared.pagination import paginate_response
-from shared.schemas import ErrorResponse
-
 from core.security import get_current_user
 
-from models import Dre
-from repositories import DreRepository
-from schemas import (
-    DreListPaginated,
-    DrePartial,
-    DrePublic,
-    DreSchema,
-)
-from services import DreService
+from models import Usuario
+from repositories import UsuarioRepository
+from services import UsuarioService
+from schemas import UsuarioSchema, UsuarioPartial, UsuarioPublic, UsuarioListPaginated
+
+from shared.pagination import paginate_response
+from shared.schemas import ErrorResponse
 
 router = APIRouter(dependencies=[Depends(get_current_user)])
 
 
 def get_service(
     session: AsyncSession = Depends(get_session),
-) -> DreService:
-    return DreService(DreRepository(session))
+) -> UsuarioService:
+    return UsuarioService(UsuarioRepository(session))
 
 
-@router.post(
-    "",
-    status_code=status.HTTP_201_CREATED,
-    response_model=DrePublic,
-    responses={400: {"model": ErrorResponse}},
-)
-async def create_dre(
-    payload: DreSchema,
-    service: DreService = Depends(get_service),
+@router.post("", status_code=status.HTTP_201_CREATED, response_model=UsuarioPublic)
+async def create_usuario(
+    payload: UsuarioSchema,
+    service: UsuarioService = Depends(get_service),
 ):
     return await service.create(payload)
 
 
+
 @router.get(
     "",
-    response_model=DreListPaginated,
+    response_model=UsuarioListPaginated,
 )
-async def list_dres(
+async def list_usuarios(
     page_number: int = 1,
     page_size: int = 10,
-    service: DreService = Depends(get_service),
+    service: UsuarioService = Depends(get_service),
 ):
     return await paginate_response(
         session=service.repository.session,
-        query=select(Dre),
+        query=select(Usuario),
         page_number=page_number,
         page_size=page_size,
     )
@@ -59,44 +50,44 @@ async def list_dres(
 
 @router.get(
     "/{id}",
-    response_model=DrePublic,
+    response_model=UsuarioPublic,
     responses={404: {"model": ErrorResponse}},
 )
-async def get_dre(
+async def get_usuario(
     id: int,
-    service: DreService = Depends(get_service),
+    service: UsuarioService = Depends(get_service),
 ):
     return await service.get(id)
 
 
 @router.put(
     "/{id}",
-    response_model=DrePublic,
+    response_model=UsuarioPublic,
     responses={
         400: {"model": ErrorResponse},
         404: {"model": ErrorResponse},
     },
 )
-async def update_dre(
+async def update_usuario(
     id: int,
-    payload: DreSchema,
-    service: DreService = Depends(get_service),
+    payload: UsuarioSchema,
+    service: UsuarioService = Depends(get_service),
 ):
     return await service.update(id, payload)
 
 
 @router.patch(
     "/{id}",
-    response_model=DrePublic,
+    response_model=UsuarioPublic,
     responses={
         400: {"model": ErrorResponse},
         404: {"model": ErrorResponse},
     },
 )
-async def patch_dre(
+async def patch_usuario(
     id: int,
-    payload: DrePartial,
-    service: DreService = Depends(get_service),
+    payload: UsuarioPartial,
+    service: UsuarioService = Depends(get_service),
 ):
     return await service.patch(id, payload)
 
@@ -106,8 +97,8 @@ async def patch_dre(
     status_code=status.HTTP_204_NO_CONTENT,
     responses={404: {"model": ErrorResponse}},
 )
-async def delete_dre(
+async def delete_usuario(
     id: int,
-    service: DreService = Depends(get_service),
+    service: UsuarioService = Depends(get_service),
 ):
     await service.delete(id)

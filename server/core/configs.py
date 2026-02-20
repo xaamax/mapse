@@ -9,7 +9,13 @@ class Settings(BaseSettings):
     POSTGRES_HOST: str
     POSTGRES_PORT: int
 
-    API_V1_URL: str
+    API_V1_URL: str = '/api/v1'
+
+    BCRYPT_ROUNDS: int = 12
+
+    JWT_SECRET_KEY: str = "change-me"
+    JWT_ALGORITHM: str = "HS256"
+    JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     @property
     def DATABASE_URL(self) -> str:

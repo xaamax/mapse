@@ -11,7 +11,6 @@ class ProjetoSocialSchema(SQLModel):
     endereco: str
     publico_alvo: int 
     situacao: int 
-    ativo: bool
     ue_id: int 
     
 class ProjetoSocialPartial(SQLModel):
@@ -25,6 +24,7 @@ class ProjetoSocialPartial(SQLModel):
     
 class ProjetoSocialPublic(ProjetoSocialSchema):
     id: int
+    ativo: bool
     
 class ProjetoSocialListPaginated(PaginatedResponse[ProjetoSocialPublic]):
     pass

@@ -8,7 +8,6 @@ from shared.pagination import PaginatedResponse
 class DreSchema(SQLModel):
     codigo_dre: str
     nome: str
-    ativo: bool
     abreviacao: str
     
 class DrePartial(SQLModel):
@@ -18,6 +17,7 @@ class DrePartial(SQLModel):
     
 class DrePublic(DreSchema):
     id: int
+    ativo: bool
     
     
 class DreListPaginated(PaginatedResponse[DrePublic]):

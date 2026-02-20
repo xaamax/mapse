@@ -9,7 +9,6 @@ class UeSchema(SQLModel):
     codigo_ue: str
     nome: str
     endereco: str
-    ativo: bool
     dre_id: int 
     
 class UePartial(SQLModel):

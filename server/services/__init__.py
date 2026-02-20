@@ -2,3 +2,4 @@ from services.dre_service import DreService
 from services.ue_service import UeService
 from services.projeto_social_service import ProjetoSocialService
 from services.projeto_social_escolar_service import ProjetoSocialEscolarService
+from services.usuario_service import UsuarioService
