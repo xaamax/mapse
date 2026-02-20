@@ -1,5 +1,6 @@
 from core.exceptions import NotFoundException
 from models import Dre
+from sqlalchemy import select
 from schemas import DreSchema, DrePartial
 from repositories import DreRepository
 
@@ -39,3 +40,8 @@ class DreService:
     async def delete(self, id: int) -> None:
         model = await self._get_or_404(id)
         await self.repository.delete(model)
+
+    async def listar_codigo_dre_nome(self) -> list[dict]:
+        query = select(Dre.codigo_dre, Dre.nome)
+        result = await self.repository.session.execute(query)
+        return result.mappings().all()

@@ -20,5 +20,10 @@ class DrePublic(DreSchema):
     ativo: bool
     
     
+class DreCompact(SQLModel):
+    codigo_dre: str
+    nome: str  
+    
+    
 class DreListPaginated(PaginatedResponse[DrePublic]):
     pass

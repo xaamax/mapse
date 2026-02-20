@@ -6,8 +6,9 @@ export const schema = z.object({
   endereco: z.string({ required_error: "(*) Campo obrigatório" }),
   publico_alvo: z.coerce.number({ required_error: "(*) Campo obrigatório" }),
   situacao: z.coerce.number({ required_error: "(*) Campo obrigatório" }),
+  ativo: z.coerce.boolean({ required_error: "(*) Campo obrigatório" }),
   ue_id: z.coerce.number({ required_error: "(*) Campo obrigatório" }),
 });
-export type projetoSocialFormValues = z.infer<typeof schema>;
+export type ProjetoSocialFormValues = z.infer<typeof schema>;
 
-export const projetoSocialSchema = z.array(schema);
+export const ProjetoSocialSchema = z.array(schema);

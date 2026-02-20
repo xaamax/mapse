@@ -11,7 +11,7 @@ export function ProjetosSociais() {
     pageSize: 10,
   });
 
-  const { data, refetch } = useGetAllProjetosSociais({
+  const { data } = useGetAllProjetosSociais({
     page_number: paginationState.pageIndex * paginationState.pageSize,
     page_size: paginationState.pageSize,
   });
@@ -25,7 +25,7 @@ export function ProjetosSociais() {
       <DataTable
         data={data?.data || []}
         columns={columns()}
-        pathInclude="/projeto-social/incluir"
+        pathInclude="/projetos-sociais/incluir"
         facetedFilters={[
           { field: 'nome', label: 'Nome' },
           { field: 'endereco', label: 'Endereço' },

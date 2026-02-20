@@ -11,6 +11,7 @@ from core.security import get_current_user
 from models import Dre
 from repositories import DreRepository
 from schemas import (
+    DreCompact,
     DreListPaginated,
     DrePartial,
     DrePublic,
@@ -56,6 +57,15 @@ async def list_dres(
         page_size=page_size,
     )
 
+@router.get(
+    "/codigos-nomes",
+    response_model=list[DreCompact],
+    responses={404: {"model": ErrorResponse}},
+)
+async def get_codigos_nomes(
+    service: DreService = Depends(get_service),
+):
+    return await service.listar_codigo_dre_nome()
 
 @router.get(
     "/{id}",

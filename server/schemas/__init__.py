@@ -1,5 +1,11 @@
-from schemas.dre import DreListPaginated, DreSchema, DrePartial, DrePublic
-from schemas.ue import UeListPaginated, UeSchema, UePartial, UePublic
+from schemas.dre import DreCompact, DreListPaginated, DreSchema, DrePartial, DrePublic
+from schemas.ue import (
+    UeCompact,
+    UeListPaginated, 
+    UeSchema, 
+    UePartial, 
+    UePublic 
+)
 from schemas.projeto_social import (
 	ProjetoSocialListPaginated,
 	ProjetoSocialSchema,

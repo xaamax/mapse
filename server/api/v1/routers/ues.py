@@ -11,6 +11,7 @@ from shared.schemas import ErrorResponse
 from models import Ue
 from repositories import UeRepository
 from schemas import (
+    UeCompact,
     UeListPaginated,
     UePartial,
     UePublic,
@@ -55,6 +56,17 @@ async def list_ues(
         page_number=page_number,
         page_size=page_size,
     )
+
+
+@router.get(
+    "/por-dre/{codigo_dre}",
+    response_model=list[UeCompact],
+)
+async def get_ues_por_dre(
+    codigo_dre: str,
+    service: UeService = Depends(get_service),
+):
+    return await service.get_by_codigo_dre(codigo_dre)
 
 
 @router.get(

@@ -21,7 +21,7 @@ export function useGetAllUesByDre(codigo_dre: string) {
     enabled: !!codigo_dre,
     select: (data) =>
       data.data?.map((ue: UeDTO) => ({
-        value: ue.codigo_ue,
+        value: ue.id,
         label: ue.nome,
       })),
   });

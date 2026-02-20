@@ -1,7 +1,8 @@
 from core.exceptions import NotFoundException
-from models import Ue
+from models import Ue, Dre
 from schemas import UeSchema, UePartial
 from repositories import UeRepository
+from sqlalchemy import select
 
 
 class UeService:
@@ -29,8 +30,7 @@ class UeService:
 
     async def patch(self, id: int, data: UePartial) -> Ue:
         model = await self._get_or_404(id)
-
-        update_data = data.model_dump(exclude_unset=Trmodel)
+        update_data = data.model_dump(exclude_unset=True)
         for attr, valmodel in update_data.items():
             setattr(model, attr, valmodel)
 
@@ -39,3 +39,12 @@ class UeService:
     async def delete(self, id: int) -> None:
         model = await self._get_or_404(id)
         await self.repository.delete(model)
+        
+    async def get_by_codigo_dre(self, codigo_dre: str) -> list[Ue]:
+        query = (
+            select(Ue)
+            .join(Dre, Ue.dre_id == Dre.id)
+            .where(Dre.codigo_dre == codigo_dre)
+        )
+        result = await self.repository.session.execute(query)
+        return result.scalars().all()        

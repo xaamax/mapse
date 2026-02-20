@@ -22,5 +22,11 @@ class UePublic(UeSchema):
     ativo: bool
     
     
+class UeCompact(SQLModel):
+    id: int
+    codigo_ue: str
+    nome: str
+    
+    
 class UeListPaginated(PaginatedResponse[UePublic]):
     pass

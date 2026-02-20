@@ -6,6 +6,6 @@ export const dreKeys = {
 
 export const projetoSocialKeys = {
   all: ["projeto-social"] as const,
-  detail: (id: string) => [...projetoSocialKeys.all, id] as const,
+  detail: (id: number) => [...projetoSocialKeys.all, id] as const,
   filters: (filters: Record<string, string | number>) => [...projetoSocialKeys.all, ...Object.values(filters)] as const,
 };
