@@ -7,6 +7,8 @@ class UsuarioSchema(SQLModel):
     nome: str
     email: str
 
+class UsuarioCreate(UsuarioSchema):
+    senha: str
 
 class UsuarioPartial(SQLModel):
     nome: Optional[str]

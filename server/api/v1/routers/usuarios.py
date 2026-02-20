@@ -8,12 +8,12 @@ from core.security import get_current_user
 from models import Usuario
 from repositories import UsuarioRepository
 from services import UsuarioService
-from schemas import UsuarioSchema, UsuarioPartial, UsuarioPublic, UsuarioListPaginated
+from schemas import UsuarioCreate, UsuarioSchema, UsuarioPartial, UsuarioPublic, UsuarioListPaginated
 
 from shared.pagination import paginate_response
 from shared.schemas import ErrorResponse
 
-router = APIRouter(dependencies=[Depends(get_current_user)])
+router = APIRouter()
 
 
 def get_service(
@@ -24,7 +24,7 @@ def get_service(
 
 @router.post("", status_code=status.HTTP_201_CREATED, response_model=UsuarioPublic)
 async def create_usuario(
-    payload: UsuarioSchema,
+    payload: UsuarioCreate,
     service: UsuarioService = Depends(get_service),
 ):
     return await service.create(payload)

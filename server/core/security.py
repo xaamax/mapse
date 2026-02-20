@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
 from passlib.hash import bcrypt
@@ -11,9 +11,20 @@ from core.configs import settings
 from core.deps import get_session
 from models import Usuario
 from repositories import UsuarioRepository
+from core.exceptions import UnauthorizedException
 
 
-http_bearer = HTTPBearer()
+class CustomHTTPBearer(HTTPBearer):
+    async def __call__(self, request: Request) -> HTTPAuthorizationCredentials:
+        try:
+            return await super().__call__(request)
+        except HTTPException as e:
+            if e.status_code == status.HTTP_401_UNAUTHORIZED:
+                raise UnauthorizedException("As credenciais de autenticação não foram fornecidas")
+            raise
+
+
+http_bearer = CustomHTTPBearer()
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:

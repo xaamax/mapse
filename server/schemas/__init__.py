@@ -12,4 +12,11 @@ from schemas.projeto_social_escolar import (
 	ProjetoSocialEscolarPartial,
 	ProjetoSocialEscolarPublic,
 )
-from schemas.usuario import UsuarioSchema, UsuarioPartial, UsuarioPublic, UsuarioLogin, UsuarioListPaginated
+from schemas.usuario import (
+    	UsuarioCreate, 
+    	UsuarioSchema, 
+     	UsuarioPartial, 
+      	UsuarioPublic, 
+       	UsuarioLogin, 
+        UsuarioListPaginated
+    )
