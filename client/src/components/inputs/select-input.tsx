@@ -1,0 +1,90 @@
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+interface Props {
+  type?: string;
+  label?: string;
+  placeholder?: string;
+  description?: string;
+  data: DataType[];
+  withAsterisk?: boolean;
+  name: string;
+  form?: any;
+  isLoading?: boolean;
+  className?: string;
+  disabled?: boolean; 
+}
+
+function SelectInput({
+  type,
+  label,
+  placeholder,
+  withAsterisk = false,
+  description,
+  data,
+  name,
+  form,
+  isLoading = false,
+  className,
+  disabled
+}: Props) {
+  return (
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          {(label || withAsterisk) && (
+            <FormLabel className="flex items-center gap-1">
+              {withAsterisk && <span className="mt-1 text-destructive">*</span>}
+              {label}{" "}
+            </FormLabel>
+          )}
+          <Select
+            value={field.value ?? ""}
+            disabled={isLoading || disabled}
+            onValueChange={(value) => {
+              const parsed = type === "number" ? Number(value) : value;
+
+              field.onChange(parsed);
+            }}
+          >
+            <FormControl>
+              <SelectTrigger className={className}>
+                {isLoading ? (
+                  "carregando..."
+                ) : (
+                  <SelectValue placeholder={placeholder} />
+                )}
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent>
+              {data?.map((d) => (
+                <SelectItem key={d.value as string} value={d.value as string}>
+                  {d.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {description && <FormDescription>{description}</FormDescription>}
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+}
+
+export default SelectInput;
