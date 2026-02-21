@@ -43,6 +43,7 @@ export const columns = (
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Nome" />
     ),
+    meta: { title: "Nome" },
     cell: ({ row }) => <div>{row.getValue("nome")}</div>,
     filterFn: (row: Row<ProjetoSocialRegistroDTO>, id, value: string[]) =>
       value.includes(row.getValue(id)),
@@ -52,6 +53,7 @@ export const columns = (
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Categoria" />
     ),
+    meta: { title: "Categoria" },
     cell: ({ row }) => <div>{row.getValue("categoria_nome")}</div>,
     filterFn: (row: Row<ProjetoSocialRegistroDTO>, id, value: string[]) =>
       value.includes(row.getValue(id)),
@@ -61,6 +63,7 @@ export const columns = (
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Público alvo" />
     ),
+    meta: { title: "Público alvo" },
     cell: ({ row }) => <div>{row.getValue("publico_alvo_nome")}</div>,
     filterFn: (row: Row<ProjetoSocialRegistroDTO>, id, value: string[]) =>
       value.includes(row.getValue(id)),
