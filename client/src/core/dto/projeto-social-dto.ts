@@ -11,10 +11,9 @@ export interface ProjetoSocialDTO {
     nome: string,
     descricao: string,
     endereco: string,
-    publico_alvo: number,
-    situacao: number,
+    publico_alvo_id: number,
+    situacao_id: number,
     ativo: boolean,
-    ue_id: number,
 }
 
 export interface SalvarProjetoSocialDTO extends Omit<ProjetoSocialDTO, "id"> {

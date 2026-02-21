@@ -9,18 +9,16 @@ class ProjetoSocialSchema(SQLModel):
     nome: str
     descricao: str
     endereco: str
-    publico_alvo: int 
-    situacao: int 
-    ue_id: int 
+    publico_alvo_id: int
+    situacao_id: int
     
 class ProjetoSocialPartial(SQLModel):
     nome: Optional[str] = None
     descricao: Optional[str] = None
     endereco: Optional[str] = None
-    publico_alvo: Optional[int] = None
-    situacao: Optional[int] = None
+    publico_alvo_id: Optional[int] = None
+    situacao_id: Optional[int] = None
     ativo: Optional[bool] = None
-    ue_id: Optional[int] = None
     
 class ProjetoSocialPublic(ProjetoSocialSchema):
     id: int

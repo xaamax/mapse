@@ -20,7 +20,7 @@ export function UeSelect(props: Props) {
   const { data = [], isLoading } = useGetAllUesByDre(dre ?? undefined);
 
   const ues =
-    !props.hideSelectAll && dre === undefined
+    props.hideSelectAll
       ? data
       : [
           {

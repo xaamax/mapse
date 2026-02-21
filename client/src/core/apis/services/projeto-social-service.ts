@@ -1,9 +1,10 @@
 import { get, post, put, remove, type ApiResult } from "./api";
 import { URL_PROJETOS_SOCIAIS } from "../../constants/urls";
 import type { SalvarProjetoSocialDTO, ProjetoSocialDTO, ProjetoSocialRegistroDTO } from "../../dto/projeto-social-dto";
+import { PaginationResponseDTO } from "@/core/dto/pagination-response-dto";
 
 
-export const getProjetosSociais = (filters?: Record<string, string | number>): Promise<ApiResult<ProjetoSocialRegistroDTO[]>> =>
+export const getProjetosSociais = (filters?: Record<string, string | number>): Promise<ApiResult<PaginationResponseDTO<ProjetoSocialRegistroDTO>>> =>
   get(URL_PROJETOS_SOCIAIS, { params: filters });
 
 export const getProjetoSocialDetalhes = (id: number): Promise<ApiResult<ProjetoSocialDTO>> =>

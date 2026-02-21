@@ -4,14 +4,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ProjetoSocialDTO } from "@/core/dto/projeto-social-dto";
 import { Button } from "@/components/ui/button";
 import { submitProjetoSocial } from "@/core/apis/services/projeto-social-service";
-import { DreSelect } from "@/components/selects/dre-select";
-import { UeSelect } from "@/components/selects/ue-select";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ProjetoSocialFormValues, ProjetoSocialSchema } from "../schema/projeto-social-schema";
+import {
+  INITIAL_VALUES,
+  ProjetoSocialFormValues,
+  ProjetoSocialSchema,
+} from "../schema/projeto-social-schema";
 import { projetoSocialDtoToForm } from "../schema/projeto-social-form.adapter";
 import Grid from "@/layouts/grid";
+import TextInput from "@/components/inputs/text-input";
+import TextareaInput from "@/components/inputs/textarea-input";
+import SituacaoSelect from "@/components/selects/situacao-select";
+import PublicoAlvoSelect from "@/components/selects/publico-alvo-select";
 
 interface FormProps {
   defaultValues?: ProjetoSocialDTO;
@@ -23,7 +29,7 @@ export const ProjetoSocialForm = ({ defaultValues }: FormProps) => {
   const form = useForm<ProjetoSocialFormValues>({
     resolver: zodResolver(ProjetoSocialSchema),
     shouldUnregister: false,
-    defaultValues
+    defaultValues,
   });
 
   const [submitAction, setSubmitAction] = useState<SubmitAction>("save");
@@ -47,18 +53,10 @@ export const ProjetoSocialForm = ({ defaultValues }: FormProps) => {
         toast.success("Projeto social salvo com sucesso!");
 
         if (submitAction === "save_add_other") {
-          form.reset({
-                nome: "",
-                descricao: "",
-                endereco: "",
-                publico_alvo: 0,
-                situacao: 0,
-                ativo: true,
-                ue_id: 0,
-          });
+          form.reset(INITIAL_VALUES);
           return;
         }
-        navigate("/projetos-sociais/consultar");
+        navigate("/projetos-sociais");
       }
     });
   };
@@ -69,20 +67,42 @@ export const ProjetoSocialForm = ({ defaultValues }: FormProps) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6 px-12 pt-4"
       >
+        <TextInput
+          label="Nome do projeto social"
+          placeholder="Digite o nome do projeto social"
+          name="nome"
+          withAsterisk
+          form={form}
+        />
+        <TextInput
+          label="Endereço do projeto social"
+          placeholder="Digite o endereço do projeto social"
+          name="endereco"
+          withAsterisk
+          form={form}
+        />
         <Grid cols="12 2 2 2">
-          <DreSelect
-            name="dre"
+          <PublicoAlvoSelect
+            name="publico_alvo_id"
             form={form}
             withAsterisk={true}
             hideSelectAll={true}
           />
-          <UeSelect
-            name="ue"
+          <SituacaoSelect
+            name="situacao_id"
             form={form}
             withAsterisk={true}
             hideSelectAll={true}
           />
         </Grid>
+        <TextareaInput
+          label="Descrição do projeto social"
+          placeholder="Descreva as informações do projeto social"
+          name="descricao"
+          withAsterisk
+          rows={5}
+          form={form}
+        />
         <div className="flex justify-end gap-2">
           {!defaultValues?.id && (
             <Button

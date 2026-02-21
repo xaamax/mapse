@@ -12,7 +12,7 @@ export function ProjetosSociais() {
   });
 
   const { data } = useGetAllProjetosSociais({
-    page_number: paginationState.pageIndex * paginationState.pageSize,
+    page_number: 1,
     page_size: paginationState.pageSize,
   });
 
@@ -23,7 +23,7 @@ export function ProjetosSociais() {
       <PageTitle title="Projetos Sociais" desc="Gerencie os registros de projetos sociais" />
 
       <DataTable
-        data={data?.data || []}
+        data={data?.data?.items || []}
         columns={columns()}
         pathInclude="/projetos-sociais/incluir"
         facetedFilters={[

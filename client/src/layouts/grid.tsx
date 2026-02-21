@@ -13,7 +13,6 @@ export default (props: Props) => {
         const [xs, sm, md, lg] = normalized
 
         return [
-            'grid',
             `grid-cols-${xs}`,
             `sm:grid-cols-${sm}`,
             `md:grid-cols-${md}`,
@@ -22,7 +21,7 @@ export default (props: Props) => {
     }
 
     return (
-        <div className={`${gridClass()} gap-4`}>
+        <div className={`grid ${gridClass()} gap-4`}>
             {props.children}
         </div>
     )

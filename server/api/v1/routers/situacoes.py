@@ -3,110 +3,109 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.deps import get_session
+from core.security import get_current_user
+
 from shared.pagination import paginate_response
 from shared.schemas import ErrorResponse
 
-from core.security import get_current_user
-
-from models import Dre
-from repositories import DreRepository
+from models import Situacao
+from repositories import SituacaoRepository
 from schemas import (
-    DreCompact,
-    DreListPaginated,
-    DrePartial,
-    DrePublic,
-    DreSchema,
+    SituacaoCompact,
+    SituacaoListPaginated,
+    SituacaoPartial,
+    SituacaoPublic,
+    SituacaoSchema,
 )
-from services import DreService
+from services import SituacaoService
 
 router = APIRouter(dependencies=[Depends(get_current_user)])
 
 
 def get_service(
     session: AsyncSession = Depends(get_session),
-) -> DreService:
-    return DreService(DreRepository(session))
+) -> SituacaoService:
+    return SituacaoService(SituacaoRepository(session))
 
 
 @router.post(
     "",
     status_code=status.HTTP_201_CREATED,
-    response_model=DrePublic,
+    response_model=SituacaoPublic,
     responses={400: {"model": ErrorResponse}},
 )
-async def create_dre(
-    payload: DreSchema,
-    service: DreService = Depends(get_service),
+async def create_situacao(
+    payload: SituacaoSchema,
+    service: SituacaoService = Depends(get_service),
 ):
     return await service.create(payload)
 
 
 @router.get(
     "",
-    response_model=DreListPaginated,
+    response_model=SituacaoListPaginated,
 )
-async def list_dres(
+async def list_situacoes(
     page_number: int = 1,
     page_size: int = 10,
-    service: DreService = Depends(get_service),
+    service: SituacaoService = Depends(get_service),
 ):
     return await paginate_response(
         session=service.repository.session,
-        query=select(Dre),
+        query=select(Situacao),
         page_number=page_number,
         page_size=page_size,
     )
 
 @router.get(
-    "/codigos-nomes",
-    response_model=list[DreCompact],
+    "/opcoes",
+    response_model=list[SituacaoCompact],
     responses={404: {"model": ErrorResponse}},
 )
-async def get_codigos_nomes(
-    service: DreService = Depends(get_service),
+async def get_situacoes(
+    service: SituacaoService = Depends(get_service),
 ):
-    return await service.listar_codigo_dre_nome()
+    return await service.listar_situacoes()
 
 @router.get(
     "/{id}",
-    response_model=DrePublic,
+    response_model=SituacaoPublic,
     responses={404: {"model": ErrorResponse}},
 )
-async def get_dre(
+async def get_situacao(
     id: int,
-    service: DreService = Depends(get_service),
+    service: SituacaoService = Depends(get_service),
 ):
     return await service.get(id)
 
 
 @router.put(
     "/{id}",
-    response_model=DrePublic,
+    response_model=SituacaoPublic,
     responses={
         400: {"model": ErrorResponse},
         404: {"model": ErrorResponse},
     },
 )
-async def update_dre(
+async def update_situacao(
     id: int,
-    payload: DreSchema,
-    service: DreService = Depends(get_service),
+    payload: SituacaoSchema,
+    service: SituacaoService = Depends(get_service),
 ):
     return await service.update(id, payload)
 
-
 @router.patch(
     "/{id}",
-    response_model=DrePublic,
+    response_model=SituacaoPublic,
     responses={
         400: {"model": ErrorResponse},
         404: {"model": ErrorResponse},
     },
 )
-async def patch_dre(
+async def patch_situacao(
     id: int,
-    payload: DrePartial,
-    service: DreService = Depends(get_service),
+    payload: SituacaoPartial,
+    service: SituacaoService = Depends(get_service),
 ):
     return await service.patch(id, payload)
 
@@ -116,8 +115,8 @@ async def patch_dre(
     status_code=status.HTTP_204_NO_CONTENT,
     responses={404: {"model": ErrorResponse}},
 )
-async def delete_dre(
+async def delete_situacao(
     id: int,
-    service: DreService = Depends(get_service),
+    service: SituacaoService = Depends(get_service),
 ):
     await service.delete(id)
