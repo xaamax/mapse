@@ -1,5 +1,6 @@
 export const URL_DRES = '/v1/dres';
 export const URL_UES = '/v1/ues';
 export const URL_PROJETOS_SOCIAIS = '/v1/projetos-sociais';
+export const URL_PROJETOS_SOCIAIS_ESCOLARES = '/v1/projetos-sociais-escolares';
 export const URL_CATEGORIAS = '/v1/categorias';
 export const URL_PUBLICOS_ALVOS = '/v1/publicos-alvos';

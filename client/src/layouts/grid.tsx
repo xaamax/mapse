@@ -2,6 +2,7 @@
 interface Props {
     cols?: string
     children?: React.ReactNode
+    className?: string
 }
 
 export default (props: Props) => {
@@ -22,7 +23,7 @@ export default (props: Props) => {
     }
 
     return (
-        <div className={`${gridClass()} gap-4`}>
+        <div className={`${gridClass()} ${props.className} gap-4 `}>
             {props.children}
         </div>
     )

@@ -43,6 +43,6 @@ class PublicoAlvoService:
         await self.repository.delete(model)
 
     async def listar_publicos_alvos(self) -> list[dict]:
-        query = select(PublicoAlvo.id, PublicoAlvo.nome)
+        query = select(PublicoAlvo.id, PublicoAlvo.nome).order_by(PublicoAlvo.id)
         result = await self.repository.session.execute(query)
         return result.mappings().all()

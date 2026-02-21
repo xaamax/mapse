@@ -27,9 +27,9 @@ from schemas.publico_alvo import (
 	PublicoAlvoPublic,
 )
 from schemas.projeto_social_escolar import (
+    ProjetoSocialEscolarSave,
 	ProjetoSocialEscolarListPaginated,
 	ProjetoSocialEscolarSchema,
-	ProjetoSocialEscolarPartial,
 	ProjetoSocialEscolarPublic,
 )
 from schemas.usuario import (

@@ -4,6 +4,7 @@ from sqlmodel import Field, Relationship
 from models.base_entity import BaseEntity
 from models.publico_alvo import PublicoAlvo
 from models.categoria import Categoria
+from models.ue import Ue
 
 
 class ProjetoSocial(BaseEntity, table=True):
@@ -26,3 +27,11 @@ class ProjetoSocialEscolar(BaseEntity, table=True):
     __tablename__: str = 'projetos_sociais_escolares'
     ue_id: int = Field(sa_column=Column(Integer, ForeignKey('ues.id', ondelete='CASCADE'), nullable=False))
     projeto_social_id: int = Field(sa_column=Column(Integer, ForeignKey('projetos_sociais.id', ondelete='CASCADE'), nullable=False))
+    
+    ue: Ue | None = Relationship(
+        sa_relationship_kwargs={"lazy": "selectin"}
+    )
+    
+    projeto_social: ProjetoSocial | None = Relationship(
+        sa_relationship_kwargs={"lazy": "selectin"}
+    )

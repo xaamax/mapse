@@ -15,7 +15,7 @@ interface Props {
 }
 
 export function UeSelect(props: Props) {
-  const dre = props.form.watch("dre");
+  const dre = props.form.watch("codigo_dre");
 
   const { data = [], isLoading } = useGetAllUesByDre(dre ?? undefined);
 
@@ -32,7 +32,7 @@ export function UeSelect(props: Props) {
 
   useEffect(() => {
     if (!props.hideSelectAll && !dre) {
-      props.form.setValue("ue", undefined);
+      props.form.setValue("ue_id", undefined);
     }
   }, [dre, props.form, props.hideSelectAll]);
 

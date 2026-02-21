@@ -58,7 +58,7 @@ async def list_dres(
     )
 
 @router.get(
-    "/codigos-nomes",
+    "/codigos-dres",
     response_model=list[DreCompact],
     responses={404: {"model": ErrorResponse}},
 )

@@ -6,6 +6,8 @@ import {
   Dashboard,
   ProjetosSociais,
   ProjetoSocialDetalhes,
+  ProjetosSociaisEscolares,
+  ProjetoSocialEscolarDetalhes,
   Error404,
 } from "@/pages/index";
 
@@ -40,6 +42,23 @@ export const router = createBrowserRouter([
               {
                 path: ":id",
                 element: <ProjetoSocialDetalhes />,
+              },
+            ],
+          },
+          {
+            path: "projetos-sociais-escolares",
+            children: [
+              {
+                path: "",
+                element: <ProjetosSociaisEscolares />,
+              },
+              {
+                path: "incluir",
+                element: <ProjetoSocialEscolarDetalhes />,
+              },
+              {
+                path: ":codigo_ue/ue",
+                element: <ProjetoSocialEscolarDetalhes />,
               },
             ],
           },

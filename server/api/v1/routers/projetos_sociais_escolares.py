@@ -9,13 +9,11 @@ from core.security import get_current_user
 from shared.pagination import paginate_response
 from shared.schemas import ErrorResponse
 
-from models import ProjetoSocialEscolar
 from repositories import ProjetoSocialEscolarRepository
 from schemas import (
-    ProjetoSocialEscolarListPaginated,
-    ProjetoSocialEscolarPartial,
-    ProjetoSocialEscolarPublic,
+    ProjetoSocialEscolarSave,
     ProjetoSocialEscolarSchema,
+    ProjetoSocialEscolarListPaginated,
 )
 from services import ProjetoSocialEscolarService
 
@@ -31,11 +29,11 @@ def get_service(
 @router.post(
     "",
     status_code=status.HTTP_201_CREATED,
-    response_model=ProjetoSocialEscolarPublic,
+    response_model=bool,
     responses={400: {"model": ErrorResponse}},
 )
 async def create_projeto_social_escolar(
-    payload: ProjetoSocialEscolarSchema,
+    payload: ProjetoSocialEscolarSave,
     service: ProjetoSocialEscolarService = Depends(get_service),
 ):
     return await service.create(payload)
@@ -50,65 +48,15 @@ async def list_projetos_sociais_escolares(
     page_size: int = 10,
     service: ProjetoSocialEscolarService = Depends(get_service),
 ):
-    return await paginate_response(
-        session=service.repository.session,
-        query=select(ProjetoSocialEscolar),
-        page_number=page_number,
-        page_size=page_size,
-    )
+    return await service.list(page_number=page_number, page_size=page_size)
 
 
 @router.get(
-    "/{id}",
-    response_model=ProjetoSocialEscolarPublic,
-    responses={404: {"model": ErrorResponse}},
+    "/{codigo_ue}/ue",
+    response_model=ProjetoSocialEscolarSchema,
 )
-async def get_projeto_social_escolar(
-    id: int,
+async def get_projetos_sociais_por_ue(
+    codigo_ue: str,
     service: ProjetoSocialEscolarService = Depends(get_service),
 ):
-    return await service.get(id)
-
-
-@router.put(
-    "/{id}",
-    response_model=ProjetoSocialEscolarPublic,
-    responses={
-        400: {"model": ErrorResponse},
-        404: {"model": ErrorResponse},
-    },
-)
-async def update_projeto_social_escolar(
-    id: int,
-    payload: ProjetoSocialEscolarSchema,
-    service: ProjetoSocialEscolarService = Depends(get_service),
-):
-    return await service.update(id, payload)
-
-
-@router.patch(
-    "/{id}",
-    response_model=ProjetoSocialEscolarPublic,
-    responses={
-        400: {"model": ErrorResponse},
-        404: {"model": ErrorResponse},
-    },
-)
-async def patch_projeto_social_escolar(
-    id: int,
-    payload: ProjetoSocialEscolarPartial,
-    service: ProjetoSocialEscolarService = Depends(get_service),
-):
-    return await service.patch(id, payload)
-
-
-@router.delete(
-    "/{id}",
-    status_code=status.HTTP_204_NO_CONTENT,
-    responses={404: {"model": ErrorResponse}},
-)
-async def delete_projeto_social_escolar(
-    id: int,
-    service: ProjetoSocialEscolarService = Depends(get_service),
-):
-    await service.delete(id)
+    return await service.projetos_sociais_por_ue(codigo_ue)

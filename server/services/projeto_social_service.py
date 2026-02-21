@@ -6,6 +6,8 @@ from schemas import ProjetoSocialSchema, ProjetoSocialPartial
 from repositories import ProjetoSocialRepository
 from schemas.projeto_social import ProjetoSocialPublic
 from shared.pagination import paginate_response
+from models import Categoria
+from sqlalchemy import select
 
 
 class ProjetoSocialService:
@@ -61,3 +63,29 @@ class ProjetoSocialService:
         ]
 
         return result
+
+    async def projetos_sociais_por_categoria(self):
+        session = self.repository.session
+        query = (
+            select(
+                Categoria.id,
+                Categoria.nome,
+                ProjetoSocial.id.label("proj_id"),
+                ProjetoSocial.nome.label("proj_nome"),
+                ProjetoSocial.descricao.label("proj_descricao"),
+            )
+            # .join(ProjetoSocial, ProjetoSocial.categoria_id == Categoria.id, isouter=True)
+            .join(ProjetoSocial, ProjetoSocial.categoria_id == Categoria.id)
+            .order_by(Categoria.nome)
+        )
+
+        result = await session.execute(query)
+        rows = result.all()
+
+        groups: dict[str, list[dict]] = {}
+        for cat_id, cat_nome, proj_id, proj_nome, proj_desc in rows:
+            groups.setdefault(cat_nome, [])
+            if proj_id is not None:
+                groups[cat_nome].append({"id": proj_id, "nome": proj_nome, "descricao": proj_desc})
+
+        return [{"categoria": nome, "projetos_sociais": projs} for nome, projs in groups.items()]

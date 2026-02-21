@@ -1,30 +1,21 @@
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type Props = {
-    title: string;
-    value: number;
-    icon?: React.ElementType;
-}
+  title: string;
+  actions?: React.ReactNode;
+  children: React.ReactNode;
+  className?: string;
+};
 
-export default function Box({ title, value, icon: Icon }: Props) {
-    return (
-        <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                    {title}
-                </CardTitle>
-                {Icon && (
-                    <Icon className="text-primary"  />
-                )}
-            </CardHeader>
-            <CardContent>
-                <div className="text-2xl font-bold">{value}</div>
-            </CardContent>
-        </Card>
-    )
+export default function Box({ title, actions, className, children }: Props) {
+  return (
+    <Card className={`h-full flex flex-col ${className ?? ""}`}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle>{title}</CardTitle>
+        {actions && <div>{actions}</div>}
+      </CardHeader>
+      <CardContent className="flex-1">{children}</CardContent>
+    </Card>
+  );
 }

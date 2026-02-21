@@ -13,7 +13,7 @@ export interface UeDTO {
 }
 
 export const getDres = (): Promise<ApiResult<DreDTO[]>> =>
-  get(`${URL_DRES}/codigos-nomes`);
+  get(`${URL_DRES}/codigos-dres`);
 
 export const getUesPorDre = (codigo_dre: string): Promise<ApiResult<UeDTO[]>> =>
   get(`${URL_UES}/por-dre/${codigo_dre}`);

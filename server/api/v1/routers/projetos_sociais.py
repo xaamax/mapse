@@ -8,7 +8,7 @@ from core.security import get_current_user
 from shared.pagination import paginate_response
 from shared.schemas import ErrorResponse
 
-from models import ProjetoSocial
+from models import ProjetoSocial, Categoria
 from repositories import ProjetoSocialRepository
 from schemas import (
     ProjetoSocialListPaginated,
@@ -51,6 +51,14 @@ async def list_projetos_sociais(
 ):
     return await service.list(page_number=page_number, page_size=page_size)
 
+
+@router.get(
+    "/por-categoria",
+)
+async def projetos_sociais_por_categoria(
+    service: ProjetoSocialService = Depends(get_service),
+):
+    return await service.projetos_sociais_por_categoria()
 
 @router.get(
     "/{id}",
