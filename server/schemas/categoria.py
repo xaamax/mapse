@@ -5,23 +5,23 @@ from sqlmodel import SQLModel
 from shared.pagination import PaginatedResponse
 
 
-class SituacaoSchema(SQLModel):
+class CategoriaSchema(SQLModel):
     nome: str
 
 
-class SituacaoPartial(SQLModel):
+class CategoriaPartial(SQLModel):
     nome: Optional[str] = None
     ativo: Optional[bool] = None
 
 
-class SituacaoPublic(SituacaoSchema):
+class CategoriaPublic(CategoriaSchema):
     id: int
     ativo: bool
 
 
-class SituacaoCompact(SQLModel):
+class CategoriaCompact(SQLModel):
     id: int
     nome: str
 
-class SituacaoListPaginated(PaginatedResponse[SituacaoPublic]):
+class CategoriaListPaginated(PaginatedResponse[CategoriaPublic]):
     pass

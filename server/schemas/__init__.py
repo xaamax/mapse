@@ -12,12 +12,12 @@ from schemas.projeto_social import (
 	ProjetoSocialPartial,
 	ProjetoSocialPublic,
 )
-from schemas.situacao import (
-    SituacaoCompact,
-	SituacaoListPaginated,
-	SituacaoSchema,
-	SituacaoPartial,
-	SituacaoPublic,
+from schemas.categoria import (
+	CategoriaCompact,
+	CategoriaListPaginated,
+	CategoriaSchema,
+	CategoriaPartial,
+	CategoriaPublic,
 )
 from schemas.publico_alvo import (
     PublicoAlvoCompact,

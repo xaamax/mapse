@@ -50,10 +50,17 @@ function SelectInput({
             </FormLabel>
           )}
           <Select
-            disabled={isLoading}
-            onValueChange={field.onChange}
-            defaultValue={field.value}
-          >
+              disabled={isLoading}
+              onValueChange={(val) => {
+                if (val === "") return field.onChange(undefined);
+                const num = Number(val);
+                if (!Number.isNaN(num) && String(num) === val) {
+                  return field.onChange(num as any);
+                }
+                return field.onChange(val as any);
+              }}
+              value={field.value == null ? "" : String(field.value)}
+            >
             <FormControl>
               <SelectTrigger className={className}>
                 {isLoading ? (

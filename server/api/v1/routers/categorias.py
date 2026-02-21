@@ -8,104 +8,107 @@ from core.security import get_current_user
 from shared.pagination import paginate_response
 from shared.schemas import ErrorResponse
 
-from models import Situacao
-from repositories import SituacaoRepository
+from models import Categoria
+from repositories import CategoriaRepository
 from schemas import (
-    SituacaoCompact,
-    SituacaoListPaginated,
-    SituacaoPartial,
-    SituacaoPublic,
-    SituacaoSchema,
+    CategoriaCompact,
+    CategoriaListPaginated,
+    CategoriaPartial,
+    CategoriaPublic,
+    CategoriaSchema,
 )
-from services import SituacaoService
+from services import CategoriaService
 
 router = APIRouter(dependencies=[Depends(get_current_user)])
 
 
 def get_service(
     session: AsyncSession = Depends(get_session),
-) -> SituacaoService:
-    return SituacaoService(SituacaoRepository(session))
+) -> CategoriaService:
+    return CategoriaService(CategoriaRepository(session))
 
 
 @router.post(
     "",
     status_code=status.HTTP_201_CREATED,
-    response_model=SituacaoPublic,
+    response_model=CategoriaPublic,
     responses={400: {"model": ErrorResponse}},
 )
-async def create_situacao(
-    payload: SituacaoSchema,
-    service: SituacaoService = Depends(get_service),
+async def create_categoria(
+    payload: CategoriaSchema,
+    service: CategoriaService = Depends(get_service),
 ):
     return await service.create(payload)
 
 
 @router.get(
     "",
-    response_model=SituacaoListPaginated,
+    response_model=CategoriaListPaginated,
 )
-async def list_situacoes(
+async def list_categorias(
     page_number: int = 1,
     page_size: int = 10,
-    service: SituacaoService = Depends(get_service),
+    service: CategoriaService = Depends(get_service),
 ):
     return await paginate_response(
         session=service.repository.session,
-        query=select(Situacao),
+        query=select(Categoria),
         page_number=page_number,
         page_size=page_size,
     )
 
+
 @router.get(
     "/opcoes",
-    response_model=list[SituacaoCompact],
+    response_model=list[CategoriaCompact],
     responses={404: {"model": ErrorResponse}},
 )
-async def get_situacoes(
-    service: SituacaoService = Depends(get_service),
+async def get_categorias(
+    service: CategoriaService = Depends(get_service),
 ):
-    return await service.listar_situacoes()
+    return await service.listar_categorias()
+
 
 @router.get(
     "/{id}",
-    response_model=SituacaoPublic,
+    response_model=CategoriaPublic,
     responses={404: {"model": ErrorResponse}},
 )
-async def get_situacao(
+async def get_categoria(
     id: int,
-    service: SituacaoService = Depends(get_service),
+    service: CategoriaService = Depends(get_service),
 ):
     return await service.get(id)
 
 
 @router.put(
     "/{id}",
-    response_model=SituacaoPublic,
+    response_model=CategoriaPublic,
     responses={
         400: {"model": ErrorResponse},
         404: {"model": ErrorResponse},
     },
 )
-async def update_situacao(
+async def update_categoria(
     id: int,
-    payload: SituacaoSchema,
-    service: SituacaoService = Depends(get_service),
+    payload: CategoriaSchema,
+    service: CategoriaService = Depends(get_service),
 ):
     return await service.update(id, payload)
 
+
 @router.patch(
     "/{id}",
-    response_model=SituacaoPublic,
+    response_model=CategoriaPublic,
     responses={
         400: {"model": ErrorResponse},
         404: {"model": ErrorResponse},
     },
 )
-async def patch_situacao(
+async def patch_categoria(
     id: int,
-    payload: SituacaoPartial,
-    service: SituacaoService = Depends(get_service),
+    payload: CategoriaPartial,
+    service: CategoriaService = Depends(get_service),
 ):
     return await service.patch(id, payload)
 
@@ -115,8 +118,8 @@ async def patch_situacao(
     status_code=status.HTTP_204_NO_CONTENT,
     responses={404: {"model": ErrorResponse}},
 )
-async def delete_situacao(
+async def delete_categoria(
     id: int,
-    service: SituacaoService = Depends(get_service),
+    service: CategoriaService = Depends(get_service),
 ):
     await service.delete(id)

@@ -19,7 +19,6 @@ import SidebarItem from "./sidebar-item";
 import useUserPreference from "@/core/stores/user-preference";
 import clsx from "clsx";
 import { useTheme } from "@/components/theme/theme-provider";
-import SearchInput from "@/components/inputs/search-input";
 import Logo from "@/components/commons/logo";
 import { useModal } from "@saimin/react-modal-manager";
 import LogoutConfirmation from "@/components/modals/logout-confirmation";
@@ -91,9 +90,7 @@ export function Header() {
       </Sheet>
 
       {/* ======== App Bar ======== */}
-      <div className="flex-1 flex gap-4 items-center justify-between">
-        <SearchInput />
-
+      <div className="flex-1 flex gap-4 items-center justify-end">
         <Button
           onClick={handleToggleTheme}
           variant="outline"
@@ -114,7 +111,7 @@ export function Header() {
               size="icon"
               className="overflow-hidden rounded-full"
             >
-              <div>S</div>
+              <div>MF</div>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

@@ -1,7 +1,13 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { DashboardLayout } from "@/layouts/dashboard/dashboard-layout";
 import RootLayout from "@/layouts/root/root-layout";
-import { Login, Dashboard, ProjetosSociais, ProjetoSocialDetalhes, Error404 } from "@/pages/index";
+import {
+  Login,
+  Dashboard,
+  ProjetosSociais,
+  ProjetoSocialDetalhes,
+  Error404,
+} from "@/pages/index";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +35,10 @@ export const router = createBrowserRouter([
               },
               {
                 path: "incluir",
+                element: <ProjetoSocialDetalhes />,
+              },
+              {
+                path: ":id",
                 element: <ProjetoSocialDetalhes />,
               },
             ],

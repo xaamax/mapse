@@ -29,7 +29,7 @@ export function PublicoAlvoSelect(props: Props) {
   return (
     <SelectInput
       data={options}
-      label={props.label || "Público Alvo"}
+      label={props.label || "Público alvo"}
       placeholder={props.placeholder || "Selecione o público alvo"}
       isLoading={isLoading}
       {...props}

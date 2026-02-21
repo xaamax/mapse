@@ -49,17 +49,12 @@ async def list_projetos_sociais(
     page_size: int = 10,
     service: ProjetoSocialService = Depends(get_service),
 ):
-    return await paginate_response(
-        session=service.repository.session,
-        query=select(ProjetoSocial),
-        page_number=page_number,
-        page_size=page_size,
-    )
+    return await service.list(page_number=page_number, page_size=page_size)
 
 
 @router.get(
     "/{id}",
-    response_model=ProjetoSocialPublic,
+    response_model=ProjetoSocialSchema,
     responses={404: {"model": ErrorResponse}},
 )
 async def get_projeto_social(
@@ -71,7 +66,7 @@ async def get_projeto_social(
 
 @router.put(
     "/{id}",
-    response_model=ProjetoSocialPublic,
+    response_model=ProjetoSocialSchema,
     responses={
         400: {"model": ErrorResponse},
         404: {"model": ErrorResponse},

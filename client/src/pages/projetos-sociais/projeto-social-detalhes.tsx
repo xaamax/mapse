@@ -7,6 +7,9 @@ import { useGetProjetoSocialPorId } from "@/core/apis/queries/projeto-social";
 export function ProjetoSocialDetalhes() {
   const { id } = useParams();
   const { data } = useGetProjetoSocialPorId(Number(id));
+  const defaultValues = data?.data
+    ? { ...data.data, id: Number(id) }
+    : undefined;
 
   return (
     <Content>
@@ -14,7 +17,7 @@ export function ProjetoSocialDetalhes() {
         title={`${id ? "Editar" : "Incluir"} Projeto Social`}
         desc="Informações referentes ao registro de Projeto Social."
       />
-      <ProjetoSocialForm defaultValues={data?.data || undefined} />
+      <ProjetoSocialForm {...{ defaultValues }} />
     </Content>
   );
 }

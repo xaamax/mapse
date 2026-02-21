@@ -16,7 +16,7 @@ import { projetoSocialDtoToForm } from "../schema/projeto-social-form.adapter";
 import Grid from "@/layouts/grid";
 import TextInput from "@/components/inputs/text-input";
 import TextareaInput from "@/components/inputs/textarea-input";
-import SituacaoSelect from "@/components/selects/situacao-select";
+import CategoriaSelect from "@/components/selects/categoria-select";
 import PublicoAlvoSelect from "@/components/selects/publico-alvo-select";
 
 interface FormProps {
@@ -82,14 +82,15 @@ export const ProjetoSocialForm = ({ defaultValues }: FormProps) => {
           form={form}
         />
         <Grid cols="12 2 2 2">
-          <PublicoAlvoSelect
-            name="publico_alvo_id"
+          <CategoriaSelect
+            name="categoria_id"
             form={form}
             withAsterisk={true}
             hideSelectAll={true}
           />
-          <SituacaoSelect
-            name="situacao_id"
+
+          <PublicoAlvoSelect
+            name="publico_alvo_id"
             form={form}
             withAsterisk={true}
             hideSelectAll={true}

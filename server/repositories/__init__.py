@@ -4,5 +4,5 @@ from repositories.ue_repository import UeRepository
 from repositories.projeto_social_repository import ProjetoSocialRepository
 from repositories.projeto_social_escolar_repository import ProjetoSocialEscolarRepository
 from repositories.usuario_repository import UsuarioRepository
-from repositories.situacao_repository import SituacaoRepository
+from repositories.categoria_repository import CategoriaRepository
 from repositories.publico_alvo_repository import PublicoAlvoRepository

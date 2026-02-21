@@ -1,4 +1,4 @@
-import { useGetAllSituacoes } from "@/core/apis/queries/situacao";
+import { useGetAllCategorias } from "@/core/apis/queries/categoria";
 import SelectInput from "@/components/inputs/select-input";
 
 interface Props {
@@ -13,14 +13,14 @@ interface Props {
   hideSelectAll?: boolean;
 }
 
-export function SituacaoSelect(props: Props) {
-  const { data = [], isLoading } = useGetAllSituacoes();
+export function CategoriaSelect(props: Props) {
+  const { data = [], isLoading } = useGetAllCategorias();
 
   const options = props.hideSelectAll
     ? data
     : [
         {
-          value: undefined,
+          value: "",
           label: "Todas",
         },
         ...data,
@@ -29,12 +29,12 @@ export function SituacaoSelect(props: Props) {
   return (
     <SelectInput
       data={options}
-      label={props.label || "Situação"}
-      placeholder={props.placeholder || "Selecione a situação"}
+      label={props.label || "Categoria"}
+      placeholder={props.placeholder || "Selecione a categoria"}
       isLoading={isLoading}
       {...props}
     />
   );
 }
 
-export default SituacaoSelect
+export default CategoriaSelect

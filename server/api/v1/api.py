@@ -7,7 +7,7 @@ from api.v1.routers import (
 	projetos_sociais_escolares,
 	ues,
     usuarios,
-	situacoes,
+	categorias,
 	publicos_alvos,
 )
 
@@ -19,5 +19,5 @@ api_router.include_router(ues.router, prefix='/ues', tags=['Ues'])
 api_router.include_router(projetos_sociais.router, prefix='/projetos-sociais', tags=['Projetos Sociais'])
 api_router.include_router(projetos_sociais_escolares.router, prefix='/projetos-sociais-escolares', tags=['Projetos Sociais Escolares'])
 api_router.include_router(usuarios.router, prefix='/usuarios', tags=['Usuarios'])
-api_router.include_router(situacoes.router, prefix='/situacoes', tags=['Situacoes'])
+api_router.include_router(categorias.router, prefix='/categorias', tags=['Categorias'])
 api_router.include_router(publicos_alvos.router, prefix='/publicos-alvos', tags=['Publicos Alvos'])

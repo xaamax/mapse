@@ -47,27 +47,24 @@ export const columns = (
     filterFn: (row: Row<ProjetoSocialRegistroDTO>, id, value: string[]) =>
       value.includes(row.getValue(id)),
   },
-
   {
-    accessorKey: "endereco",
+    accessorKey: "categoria_nome",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Endereço" />
+      <DataTableColumnHeader column={column} title="Categoria" />
     ),
-    cell: ({ row }) => <div>{row.getValue("endereco")}</div>,
+    cell: ({ row }) => <div>{row.getValue("categoria_nome")}</div>,
     filterFn: (row: Row<ProjetoSocialRegistroDTO>, id, value: string[]) =>
       value.includes(row.getValue(id)),
   },
-
   {
-    accessorKey: "situacao",
+    accessorKey: "publico_alvo_nome",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Situação" />
+      <DataTableColumnHeader column={column} title="Público alvo" />
     ),
-    cell: ({ row }) => <div>{row.getValue("situacao")}</div>,
+    cell: ({ row }) => <div>{row.getValue("publico_alvo_nome")}</div>,
     filterFn: (row: Row<ProjetoSocialRegistroDTO>, id, value: string[]) =>
       value.includes(row.getValue(id)),
   },
-
   {
     id: "actions",
     cell: ({ row }) => (

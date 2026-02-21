@@ -1,7 +1,11 @@
+from sqlalchemy import select
+
 from core.exceptions import NotFoundException
 from models import ProjetoSocial
 from schemas import ProjetoSocialSchema, ProjetoSocialPartial
 from repositories import ProjetoSocialRepository
+from schemas.projeto_social import ProjetoSocialPublic
+from shared.pagination import paginate_response
 
 
 class ProjetoSocialService:
@@ -39,3 +43,19 @@ class ProjetoSocialService:
     async def delete(self, id: int) -> None:
         model = await self._get_or_404(id)
         await self.repository.delete(model)
+
+    async def list(self, page_number=1, page_size=10):
+
+        result = await paginate_response(
+            session=self.repository.session,
+            query=select(ProjetoSocial),
+            page_number=page_number,
+            page_size=page_size,
+        )
+
+        result["items"] = [
+            ProjetoSocialPublic.from_model(x)
+            for x in result["items"]
+        ]
+
+        return result

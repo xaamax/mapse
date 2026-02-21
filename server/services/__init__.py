@@ -3,5 +3,5 @@ from services.ue_service import UeService
 from services.projeto_social_service import ProjetoSocialService
 from services.projeto_social_escolar_service import ProjetoSocialEscolarService
 from services.usuario_service import UsuarioService
-from services.situacao_service import SituacaoService
+from services.categoria_service import CategoriaService
 from services.publico_alvo_service import PublicoAlvoService

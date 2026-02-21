@@ -28,8 +28,8 @@ export function ProjetosSociais() {
         pathInclude="/projetos-sociais/incluir"
         facetedFilters={[
           { field: 'nome', label: 'Nome' },
-          { field: 'endereco', label: 'Endereço' },
-          { field: 'situacao', label: 'Situação' },
+          { field: 'categoria_nome', label: 'Categoria' },
+          { field: 'publico_alvo_nome', label: 'Público alvo' },
         ]}
       />
     </div>

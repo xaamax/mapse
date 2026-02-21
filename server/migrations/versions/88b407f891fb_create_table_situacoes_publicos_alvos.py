@@ -1,4 +1,4 @@
-"""create_table_situacoes_publicos_alvos
+"""create_table_categorias_publicos_alvos
 
 Revision ID: 88b407f891fb
 Revises: e2d653ed6efd
@@ -33,7 +33,7 @@ def upgrade() -> None:
     )
     op.create_index(op.f('ix_publicos_alvos_ativo'), 'publicos_alvos', ['ativo'], unique=False)
     op.create_index(op.f('ix_publicos_alvos_nome'), 'publicos_alvos', ['nome'], unique=True)
-    op.create_table('situacoes',
+    op.create_table('categorias',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('ativo', sa.Boolean(), nullable=False),
     sa.Column('criado_em', sa.DateTime(), nullable=True),
@@ -42,12 +42,12 @@ def upgrade() -> None:
     sa.Column('nome', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_situacoes_ativo'), 'situacoes', ['ativo'], unique=False)
-    op.create_index(op.f('ix_situacoes_nome'), 'situacoes', ['nome'], unique=True)
+    op.create_index(op.f('ix_categorias_ativo'), 'categorias', ['ativo'], unique=False)
+    op.create_index(op.f('ix_categorias_nome'), 'categorias', ['nome'], unique=True)
     op.add_column('projetos_sociais', sa.Column('publico_alvo_id', sa.Integer(), nullable=False))
-    op.add_column('projetos_sociais', sa.Column('situacao_id', sa.Integer(), nullable=False))
+    op.add_column('projetos_sociais', sa.Column('categoria_id', sa.Integer(), nullable=False))
     op.create_foreign_key(None, 'projetos_sociais', 'publicos_alvos', ['publico_alvo_id'], ['id'], ondelete='CASCADE')
-    op.create_foreign_key(None, 'projetos_sociais', 'situacoes', ['situacao_id'], ['id'], ondelete='CASCADE')
+    op.create_foreign_key(None, 'projetos_sociais', 'categorias', ['categoria_id'], ['id'], ondelete='CASCADE')
     op.drop_column('projetos_sociais', 'situacao')
     op.drop_column('projetos_sociais', 'publico_alvo')
     # ### end Alembic commands ###
@@ -60,11 +60,11 @@ def downgrade() -> None:
     op.add_column('projetos_sociais', sa.Column('situacao', sa.INTEGER(), autoincrement=False, nullable=False))
     op.drop_constraint(None, 'projetos_sociais', type_='foreignkey')
     op.drop_constraint(None, 'projetos_sociais', type_='foreignkey')
-    op.drop_column('projetos_sociais', 'situacao_id')
+    op.drop_column('projetos_sociais', 'categoria_id')
     op.drop_column('projetos_sociais', 'publico_alvo_id')
-    op.drop_index(op.f('ix_situacoes_nome'), table_name='situacoes')
-    op.drop_index(op.f('ix_situacoes_ativo'), table_name='situacoes')
-    op.drop_table('situacoes')
+    op.drop_index(op.f('ix_categorias_nome'), table_name='categorias')
+    op.drop_index(op.f('ix_categorias_ativo'), table_name='categorias')
+    op.drop_table('categorias')
     op.drop_index(op.f('ix_publicos_alvos_nome'), table_name='publicos_alvos')
     op.drop_index(op.f('ix_publicos_alvos_ativo'), table_name='publicos_alvos')
     op.drop_table('publicos_alvos')
