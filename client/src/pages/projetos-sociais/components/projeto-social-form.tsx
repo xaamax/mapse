@@ -74,13 +74,6 @@ export const ProjetoSocialForm = ({ defaultValues }: FormProps) => {
           withAsterisk
           form={form}
         />
-        <TextInput
-          label="Endereço do projeto social"
-          placeholder="Digite o endereço do projeto social"
-          name="endereco"
-          withAsterisk
-          form={form}
-        />
         <Grid cols="12 2 2 2">
           <CategoriaSelect
             name="categoria_id"

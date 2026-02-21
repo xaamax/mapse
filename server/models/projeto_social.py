@@ -10,7 +10,6 @@ class ProjetoSocial(BaseEntity, table=True):
     __tablename__: str = 'projetos_sociais'
     nome: str = Field(index=True, unique=True)
     descricao: str
-    endereco: str
     publico_alvo_id: int = Field(sa_column=Column(Integer, ForeignKey('publicos_alvos.id', ondelete='CASCADE'), nullable=False))
     categoria_id: int = Field(sa_column=Column(Integer, ForeignKey('categorias.id', ondelete='CASCADE'), nullable=False))
     

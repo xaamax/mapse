@@ -18,9 +18,10 @@ class ProjetoSocialService:
             raise NotFoundException("Projeto Social não encontrado")
         return model
 
-    async def create(self, data: ProjetoSocialSchema) -> ProjetoSocial:
+    async def create(self, data: ProjetoSocialSchema) -> ProjetoSocialPublic:
         model = ProjetoSocial(**data.model_dump())
-        return await self.repository.create(model)
+        created = await self.repository.create(model)
+        return ProjetoSocialPublic.from_model(created)
 
     async def get(self, id: int) -> ProjetoSocial:
         return await self._get_or_404(id)
@@ -31,14 +32,15 @@ class ProjetoSocialService:
             setattr(model, attr, value)
         return await self.repository.update(model)
 
-    async def patch(self, id: int, data: ProjetoSocialPartial) -> ProjetoSocial:
+    async def patch(self, id: int, data: ProjetoSocialPartial) -> ProjetoSocialPublic:
         model = await self._get_or_404(id)
 
         update_data = data.model_dump(exclude_unset=True)
         for attr, value in update_data.items():
             setattr(model, attr, value)
 
-        return await self.repository.update(model)
+        updated = await self.repository.update(model)
+        return ProjetoSocialPublic.from_model(updated)
 
     async def delete(self, id: int) -> None:
         model = await self._get_or_404(id)
