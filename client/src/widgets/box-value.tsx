@@ -11,7 +11,7 @@ type Props = {
     icon?: React.ElementType;
 }
 
-export default function Box({ title, value, icon: Icon }: Props) {
+export default function BoxValue({ title, value, icon: Icon }: Props) {
     return (
         <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

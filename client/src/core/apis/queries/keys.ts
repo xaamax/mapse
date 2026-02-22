@@ -16,3 +16,7 @@ export const projetoSocialEscolarKeys = {
   detail: (codigo_ue: string) => [...projetoSocialEscolarKeys.all, codigo_ue] as const,
   filters: (filters: Record<string, string | number>) => [...projetoSocialEscolarKeys.all, ...Object.values(filters)] as const,
 };
+
+export const dashboardKeys = {
+  all: ["dashboard"] as const,
+};

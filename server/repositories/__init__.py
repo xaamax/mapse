@@ -6,3 +6,4 @@ from repositories.projeto_social_escolar_repository import ProjetoSocialEscolarR
 from repositories.usuario_repository import UsuarioRepository
 from repositories.categoria_repository import CategoriaRepository
 from repositories.publico_alvo_repository import PublicoAlvoRepository
+from repositories.dashboard_repository import DashboardRepository

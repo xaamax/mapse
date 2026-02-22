@@ -2,6 +2,11 @@ import {
   LayoutDashboard,
   House,
   MapPinHouse,
+  Plus,
+  Building,
+  Tag,
+  FolderOpen,
+  Users,
 } from "lucide-react";
 
 const menus = [
@@ -11,15 +16,42 @@ const menus = [
     route: "/dashboard",
   },
   {
+    name: "Cadastros",
+    icon: <Plus className="h-[18px] w-[18px]" />,
+    route: "cadastros",
+    childs: [
+      {
+        name: "Categorias",
+        route: "/cadastros/categorias",
+        icon: <Tag className="h-[18px] w-[18px]" />,
+      },
+      {
+        name: "DREs",
+        route: "/cadastros/dres",
+        icon: <Building className="h-[18px] w-[18px]" />,
+      },
+      {
+        name: "UEs",
+        route: "/cadastros/ues",
+        icon: <Building className="h-[18px] w-[18px]" />,
+      },
+      {
+        name: "Publicos Alvos",
+        route: "/cadastros/publicos-alvos",
+        icon: <Users className="h-[18px] w-[18px]" />,
+      },
+    ],
+  },
+  {
     name: "Projetos Sociais",
-    icon: <House className="h-[18px] w-[18px]" />,
-    route: "/projetos-sociais", 
+    icon: <FolderOpen className="h-[18px] w-[18px]" />,
+    route: "/projetos-sociais",
   },
   {
     name: "Projetos Sociais Escolares",
     icon: <MapPinHouse className="h-[18px] w-[18px]" />,
-    route: "/projetos-sociais-escolares", 
-  }
+    route: "/projetos-sociais-escolares",
+  },
 ];
 
 export default menus;
