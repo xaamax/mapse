@@ -74,7 +74,7 @@ export const ProjetoSocialForm = ({ defaultValues }: FormProps) => {
           withAsterisk
           form={form}
         />
-        <Grid cols="12 2 2 2">
+        <Grid lg={2} md={2}>
           <CategoriaSelect
             name="categoria_id"
             form={form}

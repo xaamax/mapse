@@ -24,7 +24,7 @@ import {
   ProjetoSocialEscolarDTO,
   ProjetoSocialPorCategoriaDTO,
 } from "@/core/dto/projeto-social-escolar-dto";
-import { ChevronDownCircle, ChevronUpCircle } from "lucide-react";
+import { AlertCircle, ChevronDownCircle, ChevronUpCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 type SubmitAction = "save" | "save_add_other";
@@ -114,7 +114,7 @@ export const ProjetoSocialEscolarForm = ({ defaultValues }: FormProps) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6 px-12 pt-4"
       >
-        <Grid cols="12 2 2 2">
+        <Grid sm={2} md={2} lg={2}>
           <DreSelect
             name="codigo_dre"
             form={form}
@@ -132,9 +132,12 @@ export const ProjetoSocialEscolarForm = ({ defaultValues }: FormProps) => {
           />
         </Grid>
         <div className="space-y-3">
-          {existeRegistro ? (
-            <Badge variant="warning" className="w-full text-1xl font-light">
-              <h1>Já existe Projeto Social Escolar para esta UE.</h1>
+          {existeRegistro && !defaultValues ? (
+            <Badge variant="destructive" className="p-2 w-full">
+              <div className="flex items-center">
+                <AlertCircle className="h-4 w-4 mr-1" />
+              <p>Já existe Projeto Social Escolar para esta UE.</p>
+              </div>
             </Badge>
           ) : (
             categorias.map((cat) => (

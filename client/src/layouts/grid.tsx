@@ -1,30 +1,61 @@
+import { useEffect, useMemo } from "react";
 
-interface Props {
-    cols?: string
-    children?: React.ReactNode
-    className?: string
+interface GridProps {
+  xs?: number;
+  sm?: number;
+  md?: number;
+  lg?: number;
+  className?: string;
+  children?: React.ReactNode;
 }
 
-export default (props: Props) => {
+const clamp = (v: number) => Math.max(1, Math.min(12, Math.floor(v || 1)));
 
-    const gridClass = () => {
-        const cols = props.cols?.split(' ') ?? []
-        const normalized = Array.from({ length: 4 }, (_, i) => cols[i] || '1')
+export default function Grid({
+  xs,
+  sm,
+  md,
+  lg,
+  className = "",
+  children,
+}: GridProps) {
+  const xsN = clamp(Number(xs ?? 1));
+  const smN = clamp(Number(sm ?? xsN));
+  const mdN = clamp(Number(md ?? smN));
+  const lgN = clamp(Number(lg ?? mdN));
 
-        const [xs, sm, md, lg] = normalized
+  const dynamicClass = useMemo(
+    () => `grid-d-${xsN}-${smN}-${mdN}-${lgN}`,
+    [xsN, smN, mdN, lgN],
+  );
 
-        return [
-            `grid`,
-            `grid-cols-${xs}`,
-            `sm:grid-cols-${sm}`,
-            `md:grid-cols-${md}`,
-            `lg:grid-cols-${lg}`,
-        ].join(' ')
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+
+    const styleId = `style-${dynamicClass}`;
+    if (document.getElementById(styleId)) return;
+
+    const style = document.createElement("style");
+    style.id = styleId;
+    style.innerHTML = `
+    .${dynamicClass} {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(${xsN}, minmax(0, 1fr));
     }
+    @media (min-width: 640px) {
+      .${dynamicClass} { grid-template-columns: repeat(${smN}, minmax(0, 1fr)); }
+    }
+    @media (min-width: 768px) {
+      .${dynamicClass} { grid-template-columns: repeat(${mdN}, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1024px) {
+      .${dynamicClass} { grid-template-columns: repeat(${lgN}, minmax(0, 1fr)); }
+    }
+  `;
 
-    return (
-        <div className={`${gridClass()} ${props.className} gap-4 `}>
-            {props.children}
-        </div>
-    )
+    document.head.appendChild(style);
+  }, [dynamicClass, xsN, smN, mdN, lgN]);
+
+  return <div className={`${dynamicClass} ${className}`}>{children}</div>;
 }
