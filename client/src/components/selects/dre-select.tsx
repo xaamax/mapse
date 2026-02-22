@@ -11,6 +11,7 @@ interface Props {
   isLoading?: boolean;
   className?: string;
   hideSelectAll?: boolean;
+  disabled?: boolean;
 }
 
 export function DreSelect(props: Props) {

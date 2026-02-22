@@ -12,6 +12,7 @@ interface Props {
   isLoading?: boolean;
   className?: string;
   hideSelectAll?: boolean;
+  disabled?: boolean;
 }
 
 export function UeSelect(props: Props) {
@@ -19,16 +20,15 @@ export function UeSelect(props: Props) {
 
   const { data = [], isLoading } = useGetAllUesByDre(dre ?? undefined);
 
-  const ues =
-    props.hideSelectAll
-      ? data
-      : [
-          {
-            value: undefined,
-            label: "Todas",
-          },
-          ...data,
-        ];
+  const ues = props.hideSelectAll
+    ? data
+    : [
+        {
+          value: undefined,
+          label: "Todas",
+        },
+        ...data,
+      ];
 
   useEffect(() => {
     if (!props.hideSelectAll && !dre) {
@@ -38,6 +38,7 @@ export function UeSelect(props: Props) {
 
   return (
     <SelectInput
+      key={`ue-select-${props.form.getValues("ue_id")}`}
       data={ues}
       label={props.label || "Unidade Educacional (UE)"}
       placeholder={props.placeholder || "Selecione a UE"}

@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, ForeignKey
-from sqlmodel import Field, Relationship
+from sqlmodel import Field, Relationship, SQLModel
 
 from models.base_entity import BaseEntity
 from models.publico_alvo import PublicoAlvo
@@ -23,8 +23,9 @@ class ProjetoSocial(BaseEntity, table=True):
     )
 
 
-class ProjetoSocialEscolar(BaseEntity, table=True):
+class ProjetoSocialEscolar(SQLModel, table=True):
     __tablename__: str = 'projetos_sociais_escolares'
+    id: int = Field(default=None, primary_key=True)
     ue_id: int = Field(sa_column=Column(Integer, ForeignKey('ues.id', ondelete='CASCADE'), nullable=False))
     projeto_social_id: int = Field(sa_column=Column(Integer, ForeignKey('projetos_sociais.id', ondelete='CASCADE'), nullable=False))
     

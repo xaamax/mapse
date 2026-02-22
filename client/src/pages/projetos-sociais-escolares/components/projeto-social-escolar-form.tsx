@@ -79,7 +79,10 @@ export const ProjetoSocialEscolarForm = ({ defaultValues }: FormProps) => {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [form.getValues("ue_id")]);
+
+  const isEditMode = Boolean(defaultValues);
+
 
   const toggleCategory = (name: string) => {
     setExpanded((s) => ({ ...s, [name]: !s[name] }));
@@ -115,13 +118,15 @@ export const ProjetoSocialEscolarForm = ({ defaultValues }: FormProps) => {
             form={form}
             withAsterisk={true}
             hideSelectAll={true}
-          />
+            disabled={isEditMode}
+            />
 
           <UeSelect
             name="ue_id"
             form={form}
             withAsterisk={true}
             hideSelectAll={true}
+            disabled={isEditMode}
           />
         </Grid>
         <div className="space-y-3">
@@ -170,7 +175,7 @@ export const ProjetoSocialEscolarForm = ({ defaultValues }: FormProps) => {
           ))}
         </div>
         <div className="flex justify-end gap-2">
-          {!defaultValues && (
+          {!isEditMode && (
             <Button
               type="submit"
               variant="outline_primary"
