@@ -10,7 +10,7 @@ from shared.schemas import ErrorResponse
 
 from models import PublicoAlvo
 from repositories import PublicoAlvoRepository
-from schemas import (
+from models import (
     PublicoAlvoCompact,
     PublicoAlvoListPaginated,
     PublicoAlvoPartial,

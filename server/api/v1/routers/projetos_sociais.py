@@ -10,7 +10,7 @@ from shared.schemas import ErrorResponse
 
 from models import ProjetoSocial, Categoria
 from repositories import ProjetoSocialRepository
-from schemas import (
+from models import (
     ProjetoSocialListPaginated,
     ProjetoSocialPartial,
     ProjetoSocialPublic,

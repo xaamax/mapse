@@ -10,7 +10,7 @@ from shared.schemas import ErrorResponse
 
 from models import Ue
 from repositories import UeRepository
-from schemas import (
+from models import (
     UeCompact,
     UeListPaginated,
     UePartial,

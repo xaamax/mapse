@@ -2,7 +2,7 @@ from sqlalchemy import select
 
 from core.exceptions import NotFoundException
 from models import Categoria
-from schemas import CategoriaSchema, CategoriaPartial
+from models import CategoriaSchema, CategoriaPartial
 from repositories import CategoriaRepository
 
 

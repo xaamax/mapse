@@ -10,7 +10,7 @@ from core.security import get_current_user
 
 from models import Dre
 from repositories import DreRepository
-from schemas import (
+from models import (
     DreCompact,
     DreListPaginated,
     DrePartial,

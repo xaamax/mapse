@@ -1,7 +1,7 @@
 from core.security import get_password_hash
 from models import Usuario
 from repositories import UsuarioRepository
-from schemas import UsuarioSchema
+from models import UsuarioSchema
 
 
 class UsuarioService:

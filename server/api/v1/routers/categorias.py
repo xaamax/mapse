@@ -10,7 +10,7 @@ from shared.schemas import ErrorResponse
 
 from models import Categoria
 from repositories import CategoriaRepository
-from schemas import (
+from models import (
     CategoriaCompact,
     CategoriaListPaginated,
     CategoriaPartial,

@@ -1,6 +1,6 @@
 from core.exceptions import NotFoundException
 from models import Ue, Dre
-from schemas import UeSchema, UePartial
+from models import UeSchema, UePartial
 from repositories import UeRepository
 from sqlalchemy import select
 

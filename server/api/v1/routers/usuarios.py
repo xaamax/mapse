@@ -8,7 +8,7 @@ from core.security import get_current_user
 from models import Usuario
 from repositories import UsuarioRepository
 from services import UsuarioService
-from schemas import UsuarioCreate, UsuarioSchema, UsuarioPartial, UsuarioPublic, UsuarioListPaginated
+from models import UsuarioCreate, UsuarioSchema, UsuarioPartial, UsuarioPublic, UsuarioListPaginated
 
 from shared.pagination import paginate_response
 from shared.schemas import ErrorResponse

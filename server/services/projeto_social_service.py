@@ -2,9 +2,9 @@ from sqlalchemy import select
 
 from core.exceptions import NotFoundException
 from models import ProjetoSocial
-from schemas import ProjetoSocialSchema, ProjetoSocialPartial
+from models import ProjetoSocialSchema, ProjetoSocialPartial
 from repositories import ProjetoSocialRepository
-from schemas.projeto_social import ProjetoSocialPublic
+from models.projeto_social import ProjetoSocialPublic
 from shared.pagination import paginate_response
 from models import Categoria
 from sqlalchemy import select

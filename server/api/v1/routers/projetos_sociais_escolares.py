@@ -10,7 +10,7 @@ from shared.pagination import paginate_response
 from shared.schemas import ErrorResponse
 
 from repositories import ProjetoSocialEscolarRepository
-from schemas import (
+from models import (
     ProjetoSocialEscolarSave,
     ProjetoSocialEscolarSchema,
     ProjetoSocialEscolarListPaginated,

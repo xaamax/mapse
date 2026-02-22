@@ -3,7 +3,7 @@ from sqlalchemy import select
 from core.exceptions import NotFoundException
 from sqlalchemy.exc import IntegrityError
 from models import ProjetoSocialEscolar
-from schemas import ProjetoSocialEscolarSave
+from models import ProjetoSocialEscolarSave
 from repositories import ProjetoSocialEscolarRepository
 from shared.pagination import paginate_response
 from models import Ue, Dre

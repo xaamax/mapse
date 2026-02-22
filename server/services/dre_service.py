@@ -1,7 +1,7 @@
 from core.exceptions import NotFoundException
 from models import Dre
 from sqlalchemy import select
-from schemas import DreSchema, DrePartial
+from models import DreSchema, DrePartial
 from repositories import DreRepository
 
 

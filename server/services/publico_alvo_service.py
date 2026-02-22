@@ -2,7 +2,7 @@ from sqlalchemy import select
 
 from core.exceptions import NotFoundException
 from models import PublicoAlvo
-from schemas import PublicoAlvoSchema, PublicoAlvoPartial
+from models import PublicoAlvoSchema, PublicoAlvoPartial
 from repositories import PublicoAlvoRepository
 
 

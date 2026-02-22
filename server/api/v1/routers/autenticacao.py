@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from schemas import UsuarioLogin
+from models import UsuarioLogin
 
 from core.configs import settings
 from core.deps import get_session
