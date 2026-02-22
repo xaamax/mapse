@@ -118,3 +118,9 @@ class ProjetoSocialEscolarService:
             "ue_id": ue_id,
             "projetos_sociais": projetos,
         }
+
+    async def exists_by_ue_id(self, ue_id: int) -> bool:
+        session = self.repository.session
+        query = select(ProjetoSocialEscolar.id).where(ProjetoSocialEscolar.ue_id == ue_id).limit(1)
+        result = await session.execute(query)
+        return result.scalar_one_or_none() is not None

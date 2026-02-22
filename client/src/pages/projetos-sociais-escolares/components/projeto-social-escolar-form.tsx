@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   submitProjetoSocialEscolar,
   getProjetosPorCategoria,
+  getProjetoSocialEscolarExisteUe,
 } from "@/core/apis/services/projeto-social-escolar-service";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -24,6 +25,7 @@ import {
   ProjetoSocialPorCategoriaDTO,
 } from "@/core/dto/projeto-social-escolar-dto";
 import { ChevronDownCircle, ChevronUpCircle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 type SubmitAction = "save" | "save_add_other";
 
@@ -68,21 +70,21 @@ export const ProjetoSocialEscolarForm = ({ defaultValues }: FormProps) => {
     });
   };
 
+  const [existeRegistro, setExisteRegistro] = useState<boolean>(false);
+
   useEffect(() => {
-    let mounted = true;
     getProjetosPorCategoria().then((res) => {
-      if (!mounted) return;
+      if (!form.getValues("ue_id")) return;
       if (res.success) {
+        getProjetoSocialEscolarExisteUe(form.getValues("ue_id")).then((res) => {
+          setExisteRegistro(!!res.data);
+        });
         setCategorias(res.data ?? []);
       }
     });
-    return () => {
-      mounted = false;
-    };
   }, [form.getValues("ue_id")]);
 
   const isEditMode = Boolean(defaultValues);
-
 
   const toggleCategory = (name: string) => {
     setExpanded((s) => ({ ...s, [name]: !s[name] }));
@@ -119,7 +121,7 @@ export const ProjetoSocialEscolarForm = ({ defaultValues }: FormProps) => {
             withAsterisk={true}
             hideSelectAll={true}
             disabled={isEditMode}
-            />
+          />
 
           <UeSelect
             name="ue_id"
@@ -130,49 +132,55 @@ export const ProjetoSocialEscolarForm = ({ defaultValues }: FormProps) => {
           />
         </Grid>
         <div className="space-y-3">
-          {categorias.map((cat) => (
-            <Card key={cat.categoria}>
-              <CardHeader
-                className="flex items-center cursor-pointer"
-                onClick={() => toggleCategory(cat.categoria)}
-              >
-                <div className="flex text-primary justify-between w-full">
-                  <CardTitle>{cat.categoria}</CardTitle>
-                  <div className="ml-2">
-                    {expanded[cat.categoria] ? (
-                      <ChevronUpCircle />
-                    ) : (
-                      <ChevronDownCircle />
-                    )}
+          {existeRegistro ? (
+            <Badge variant="warning" className="w-full text-1xl font-light">
+              <h1>Já existe Projeto Social Escolar para esta UE.</h1>
+            </Badge>
+          ) : (
+            categorias.map((cat) => (
+              <Card key={cat.categoria}>
+                <CardHeader
+                  className="flex items-center cursor-pointer"
+                  onClick={() => toggleCategory(cat.categoria)}
+                >
+                  <div className="flex text-primary justify-between w-full">
+                    <CardTitle>{cat.categoria}</CardTitle>
+                    <div className="ml-2">
+                      {expanded[cat.categoria] ? (
+                        <ChevronUpCircle />
+                      ) : (
+                        <ChevronDownCircle />
+                      )}
+                    </div>
                   </div>
-                </div>
-              </CardHeader>
-              {expanded[cat.categoria] && (
-                <CardContent>
-                  <div className="flex flex-col gap-2">
-                    {cat.projetos_sociais.map((p) => (
-                      <label key={p.id} className="flex items-center gap-3">
-                        <Checkbox
-                          checked={(
-                            form.getValues("projetos_sociais") || []
-                          ).includes(p.id)}
-                          onCheckedChange={(checked) =>
-                            toggleProject(p.id, Boolean(checked))
-                          }
-                        />
-                        <div>
-                          <div className="font-medium">{p.nome}</div>
-                          <div className="text-sm text-muted-foreground">
-                            {p.descricao}
+                </CardHeader>
+                {expanded[cat.categoria] && (
+                  <CardContent>
+                    <div className="flex flex-col gap-2">
+                      {cat.projetos_sociais.map((p) => (
+                        <label key={p.id} className="flex items-center gap-3">
+                          <Checkbox
+                            checked={(
+                              form.getValues("projetos_sociais") || []
+                            ).includes(p.id)}
+                            onCheckedChange={(checked) =>
+                              toggleProject(p.id, Boolean(checked))
+                            }
+                          />
+                          <div>
+                            <div className="font-medium">{p.nome}</div>
+                            <div className="text-sm text-muted-foreground">
+                              {p.descricao}
+                            </div>
                           </div>
-                        </div>
-                      </label>
-                    ))}
-                  </div>
-                </CardContent>
-              )}
-            </Card>
-          ))}
+                        </label>
+                      ))}
+                    </div>
+                  </CardContent>
+                )}
+              </Card>
+            ))
+          )}
         </div>
         <div className="flex justify-end gap-2">
           {!isEditMode && (

@@ -60,3 +60,14 @@ async def get_projetos_sociais_por_ue(
     service: ProjetoSocialEscolarService = Depends(get_service),
 ):
     return await service.projetos_sociais_por_ue(codigo_ue)
+
+
+@router.get(
+    "/ue/{ue_id}/existe",
+    response_model=bool,
+)
+async def ue_has_projetos_sociais(
+    ue_id: int,
+    service: ProjetoSocialEscolarService = Depends(get_service),
+):
+    return await service.exists_by_ue_id(ue_id)

@@ -1,4 +1,4 @@
-import { get, post, remove, type ApiResult } from "./api";
+import { get, post, type ApiResult } from "./api";
 import { URL_PROJETOS_SOCIAIS_ESCOLARES, URL_PROJETOS_SOCIAIS } from "../../constants/urls";
 import type { ProjetoSocialEscolarDTO, ProjetoSocialEscolarRegistroDTO, ProjetoSocialPorCategoriaDTO, SalvarProjetoSocialEscolarDTO } from "../../dto/projeto-social-escolar-dto";
 import { PaginationResponseDTO } from "@/core/dto/pagination-response-dto";
@@ -19,5 +19,5 @@ export const submitProjetoSocialEscolar = async (payload: SalvarProjetoSocialEsc
   return post<SalvarProjetoSocialEscolarDTO>(URL_PROJETOS_SOCIAIS_ESCOLARES, payload)
 }
 
-export const excluirProjetoSocialEscolar = (id: number) =>
-  remove(`${URL_PROJETOS_SOCIAIS_ESCOLARES}/${id}`);    
+export const getProjetoSocialEscolarExisteUe = (ue_id: number): Promise<ApiResult<boolean>> =>
+  get(`${URL_PROJETOS_SOCIAIS_ESCOLARES}/ue/${ue_id}/existe`);
