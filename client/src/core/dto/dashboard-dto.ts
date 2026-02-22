@@ -9,8 +9,10 @@ export interface DashboardDTO {
     total: number;
   }[];
   projetos_sociais_dre: {
-    label: string;
-    total: number;
+    dre_nome: string;
+    dre_sigla: string;
+    total_ues: number;
+    total_projetos_escolares: number;
   }[];
   projetos_sociais_publico_alvo: {
     label: string;

@@ -28,8 +28,8 @@ class DashboardService:
         r = await session.execute(select(func.count(PublicoAlvo.id)))
         publicos_count = int(r.scalar_one() or 0)
 
-        r = await session.execute(select(func.count(Ue.id)))
-        ues_count = int(r.scalar_one() or 0)
+        r = await session.execute(select(func.count(ProjetoSocialEscolar.ue_id.distinct())))
+        ues_atendidas_count = int(r.scalar_one() or 0)
 
         q = (
             select(Categoria.nome.label("label"), func.count(ProjetoSocial.id).label("total"))
@@ -41,14 +41,14 @@ class DashboardService:
         projetos_por_categoria = [dict(label=row.label, total=int(row.total)) for row in res.all()]
 
         q = (
-            select(Dre.nome.label("label"), func.count(ProjetoSocialEscolar.projeto_social_id).label("total"))
+            select(Dre.nome.label("dre_nome"), Dre.abreviacao.label("dre_sigla"), func.count(ProjetoSocialEscolar.ue_id.distinct()).label("total_ues"), func.count(ProjetoSocialEscolar.ue_id).label("total_projetos_escolares"))
             .join(Ue, Ue.dre_id == Dre.id)
             .join(ProjetoSocialEscolar, ProjetoSocialEscolar.ue_id == Ue.id)
-            .group_by(Dre.nome)
-            .order_by(func.count(ProjetoSocialEscolar.projeto_social_id).desc())
+            .group_by(Dre.nome, Dre.abreviacao)
+            .order_by(func.count(ProjetoSocialEscolar.ue_id.distinct()).desc())
         )
         res = await session.execute(q)
-        projetos_por_dre = [dict(label=row.label, total=int(row.total)) for row in res.all()]
+        projetos_por_dre = [dict(dre_nome=row.dre_nome.split('DIRETORIA REGIONAL DE EDUCACAO ')[1], dre_sigla=row.dre_sigla.split(' - ')[1], total_ues=int(row.total_ues), total_projetos_escolares=int(row.total_projetos_escolares)) for row in res.all()]
 
         q = (
             select(PublicoAlvo.nome.label("label"), func.count(ProjetoSocial.id).label("total"))
@@ -62,9 +62,9 @@ class DashboardService:
         return {
             "indicadores": [
                 {"title": "Projetos Sociais", "value": projetos_count, "icon": "FolderOpen"},
+                {"title": "Unidades Educacionais Atendidas", "value": ues_atendidas_count, "icon": "Building"},
                 {"title": "Categorias", "value": categorias_count, "icon": "Tag"},
                 {"title": "Públicos Alvos", "value": publicos_count, "icon": "Users"},
-                {"title": "UEs Envolvidas", "value": ues_count, "icon": "Building"},
             ],
             "projetos_sociais_categoria": projetos_por_categoria,
             "projetos_sociais_dre": projetos_por_dre,
