@@ -1,4 +1,3 @@
-import { closeAuth } from './../../hooks/use-auth-operations';
 export const dreKeys = {
   all: ["dre"] as const,
   detail: (id: string) => [...dreKeys.all, id] as const,
@@ -19,4 +18,16 @@ export const projetoSocialEscolarKeys = {
 
 export const dashboardKeys = {
   all: ["dashboard"] as const,
+};
+
+export const formularioKeys = {
+  all: ["formulario"] as const,
+  detail: (id: number) => [...formularioKeys.all, id] as const,
+  filters: (filters: Record<string, string | number>) => [...formularioKeys.all, ...Object.values(filters)] as const,
+};
+
+export const campoKeys = {
+  all: ["campo"] as const,
+  detail: (id: number) => [...campoKeys.all, id] as const,
+  filters: (filters: Record<string, string | number>) => [...campoKeys.all, ...Object.values(filters)] as const,
 };

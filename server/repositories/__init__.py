@@ -7,3 +7,5 @@ from repositories.usuario_repository import UsuarioRepository
 from repositories.categoria_repository import CategoriaRepository
 from repositories.publico_alvo_repository import PublicoAlvoRepository
 from repositories.dashboard_repository import DashboardRepository
+from repositories.formulario_repository import FormularioRepository
+from repositories.campo_repository import CampoRepository

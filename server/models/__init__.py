@@ -1,12 +1,5 @@
-from models.dre import Dre
-from models.ue import Ue
-from models.projeto_social import ProjetoSocial, ProjetoSocialEscolar
-from models.usuario import Usuario
-from models.categoria import Categoria
-from models.publico_alvo import PublicoAlvo
-
-# Schemas / DTOs re-export (moved from server/schemas)
 from models.dre import (
+    Dre,
 	DreCompact,
 	DreListPaginated,
 	DreSchema,
@@ -14,6 +7,7 @@ from models.dre import (
 	DrePublic,
 )
 from models.ue import (
+    Ue,
 	UeCompact,
 	UeListPaginated,
 	UeSchema,
@@ -21,6 +15,8 @@ from models.ue import (
 	UePublic,
 )
 from models.projeto_social import (
+    ProjetoSocial, 
+    ProjetoSocialEscolar,
 	ProjetoSocialListPaginated,
 	ProjetoSocialSchema,
 	ProjetoSocialPartial,
@@ -31,6 +27,7 @@ from models.projeto_social import (
 	ProjetoSocialEscolarListPaginated,
 )
 from models.categoria import (
+    Categoria,
 	CategoriaCompact,
 	CategoriaListPaginated,
 	CategoriaSchema,
@@ -38,6 +35,7 @@ from models.categoria import (
 	CategoriaPublic,
 )
 from models.publico_alvo import (
+	PublicoAlvo,
 	PublicoAlvoCompact,
 	PublicoAlvoListPaginated,
 	PublicoAlvoSchema,
@@ -45,10 +43,30 @@ from models.publico_alvo import (
 	PublicoAlvoPublic,
 )
 from models.usuario import (
+    Usuario,
 	UsuarioCreate,
 	UsuarioSchema,
 	UsuarioPartial,
 	UsuarioPublic,
 	UsuarioLogin,
 	UsuarioListPaginated,
+)
+
+from models.formulario import (
+	Formulario,
+ 	FormularioCompact,
+    FormularioDetalhes,
+	FormularioSchema,
+	FormularioPublic,
+	FormularioPartial,
+ 	FormularioListPaginated
+)
+
+from models.campo import (
+	Campo,
+	CampoSchema,
+	CampoPartial,
+	CampoPublic,
+	CampoListPaginated,
+	TipoCampoEnum,
 )

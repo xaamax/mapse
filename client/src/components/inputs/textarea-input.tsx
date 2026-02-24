@@ -32,6 +32,7 @@ function TextareaInput({
       control={form.control}
       name={name}
       render={({ field }) => {
+        const { value, onChange, onBlur, name: fieldName, ref, ...rest } = field;
         return (
           <FormItem>
             {(label || withAsterisk) && (
@@ -47,7 +48,12 @@ function TextareaInput({
                 placeholder={placeholder}
                 className="resize-none"
                 rows={rows}
-                {...field}
+                value={value ?? ""}
+                onChange={onChange}
+                onBlur={onBlur}
+                name={fieldName}
+                ref={ref}
+                {...rest}
               />
             </FormControl>
             {description && <FormDescription>{description}</FormDescription>}

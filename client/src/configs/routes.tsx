@@ -4,11 +4,15 @@ import RootLayout from "@/layouts/root/root-layout";
 import {
   Login,
   Dashboard,
+  Campos,
+  Formularios,
+  FormularioDetalhes,
   ProjetosSociais,
   ProjetoSocialDetalhes,
   ProjetosSociaisEscolares,
   ProjetoSocialEscolarDetalhes,
   Error404,
+  CampoDetalhes,
 } from "@/pages/index";
 
 export const router = createBrowserRouter([
@@ -42,6 +46,50 @@ export const router = createBrowserRouter([
               {
                 path: ":id",
                 element: <ProjetoSocialDetalhes />,
+              },
+            ],
+          },
+          {
+            path: "cadastros",
+            children: [
+              {
+                path: "formularios",
+                children: [
+                  {
+                    path: "",
+                    element: <Formularios />,
+                  },
+                  {
+                    path: "incluir",
+                    element: <FormularioDetalhes />,
+                  },
+                  {
+                    path: ":id",
+                    element: <FormularioDetalhes />,
+                  },
+                ]
+              },
+            ],
+          },
+          {
+            path: "formularios",
+            children: [
+              {
+                path: "campos",
+                children: [
+                  {
+                    path: "",
+                    element: <Campos />,
+                  },
+                  {
+                    path: "incluir",
+                    element: <CampoDetalhes />,
+                  },
+                  {
+                    path: ":id",
+                    element: <CampoDetalhes />,
+                  },
+                ]
               },
             ],
           },

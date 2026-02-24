@@ -1,4 +1,6 @@
+export const URL_CAMPOS = '/v1/campos';
 export const URL_DRES = '/v1/dres';
+export const URL_FORMULARIOS = '/v1/formularios';
 export const URL_UES = '/v1/ues';
 export const URL_PROJETOS_SOCIAIS = '/v1/projetos-sociais';
 export const URL_PROJETOS_SOCIAIS_ESCOLARES = '/v1/projetos-sociais-escolares';

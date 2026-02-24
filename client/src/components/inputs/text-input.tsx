@@ -15,6 +15,7 @@ interface Props {
   withAsterisk?: boolean;
   name: string;
   form?: any;
+  type?: string;
 }
 
 function TextInput({
@@ -24,6 +25,7 @@ function TextInput({
   withAsterisk = false,
   name,
   form,
+  type = "text",  
 }: Props) {
   return (
     <FormField
@@ -32,13 +34,13 @@ function TextInput({
       render={({ field }) => (
         <FormItem>
           {(label || withAsterisk) && (
-            <FormLabel className="flex items-center gap-1">
-              {withAsterisk && <span className="mt-1 text-destructive">*</span>}
+            <FormLabel className="flex items-center mt-1 gap-1">
+              {withAsterisk && <span className="text-destructive">*</span>}
               {label}{" "}
             </FormLabel>
           )}
           <FormControl>
-            <Input placeholder={placeholder} {...field} />
+            <Input placeholder={placeholder} type={type} {...field} />
           </FormControl>
 
           {description && <FormDescription>{description}</FormDescription>}

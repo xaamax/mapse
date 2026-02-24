@@ -5,3 +5,6 @@ from services.projeto_social_escolar_service import ProjetoSocialEscolarService
 from services.usuario_service import UsuarioService
 from services.categoria_service import CategoriaService
 from services.publico_alvo_service import PublicoAlvoService
+from services.dashboard_service import DashboardService
+from services.formulario_service import FormularioService
+from services.campo_service import CampoService

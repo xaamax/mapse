@@ -47,8 +47,8 @@ function SelectInput({
         <FormItem>
           {(label || withAsterisk) && (
             <FormLabel className="flex items-center gap-1">
-              {label}{" "}
               {withAsterisk && <span className="mt-1 text-destructive">*</span>}
+              {label}{" "}
             </FormLabel>
           )}
           <Select

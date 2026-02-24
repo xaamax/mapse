@@ -1,18 +1,19 @@
 import {
   LayoutDashboard,
-  House,
   MapPinHouse,
   Plus,
   Building,
   Tag,
   FolderOpen,
   Users,
+  CircleGauge,
+  FormInput,
 } from "lucide-react";
 
 const menus = [
   {
     name: "Dashboard",
-    icon: <LayoutDashboard className="h-[18px] w-[18px]" />,
+    icon: <CircleGauge className="h-[18px] w-[18px]" />,
     route: "/dashboard",
   },
   {
@@ -39,6 +40,11 @@ const menus = [
         name: "Publicos Alvos",
         route: "/cadastros/publicos-alvos",
         icon: <Users className="h-[18px] w-[18px]" />,
+      },
+      {
+        name: "Formulários",
+        route: "/cadastros/formularios",
+        icon: <LayoutDashboard className="h-[18px] w-[18px]" />,
       },
     ],
   },
